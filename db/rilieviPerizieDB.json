@@ -1,0 +1,70 @@
+{
+  "utenti": [
+    {
+      "_id": "ADMIN",
+      "username": "admin",
+      "password": "password",
+      "nome": "Davide Pepe",
+      "email": "d.pepe.2727@vallauri.edu"
+    },
+    {
+      "_id": "USER1",
+      "username": "mario_rossi",
+      "password": "password",
+      "nome": "Mario Rossi",
+      "email": "d.pepe.2727@vallauri.edu"
+    },
+    {
+      "_id": "USER2",
+      "username": "luigi_verdi",
+      "password": "password",
+      "nome": "Luigi Verdi",
+      "email": "d.pepe.2727@vallauri.edu"
+    }
+  ],
+  "perizie": [
+    {
+      "_id": "PER1",
+      "idUtente": "USER1",
+      "dataOra": "2024-03-06T10:30:00Z",
+      "coordinate": { "lat": 44.646124, "lng": 7.654039 },
+      "descrizione": "Mancata precedenza alla rotonda.",
+      "fotografie": [
+          {
+              "url": "aggiungere foto",
+              "commento":"Veicolo A"
+          },
+          {
+              "url": "aggiungere foto",
+              "commento":"Veicolo B"
+          }
+      ]
+    },
+    {
+      "_id": "PER2",
+      "idUtente": "USER1",
+      "dataOra": "2024-03-06T14:15:00Z",
+      "coordinate": { "lat": 44.705898, "lng": 7.687379 },
+      "descrizione": "Mancato stop all'incrocio.",
+      "fotografie": [
+          {
+              "url": "aggiungere foto",
+              "commento":"Danno veicolo A"
+          }
+      ]
+    },
+    {
+      "_id": "PER3",
+      "idUtente": "USER2",
+      "dataOra": "2024-03-07T09:45:00Z",
+      "coordinate": { "lat": 44.656829, "lng": 7.715956 },
+      "descrizione": "Tamponamento in rotonda.",
+      "fotografie": [
+          {
+              "url": "aggiungere foto",
+              "commento":"Danno Veicolo B"
+          }
+      ]
+    }
+  ]
+}
