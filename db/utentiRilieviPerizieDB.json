@@ -1,0 +1,23 @@
+[
+  {
+    "_id": "ADMIN",
+    "username": "admin",
+    "password": "password",
+    "nome": "Davide Pepe",
+    "email": "d.pepe.2727@vallauri.edu"
+  },
+  {
+    "_id": "USER1",
+    "username": "mario_rossi",
+    "password": "password",
+    "nome": "Mario Rossi",
+    "email": "d.pepe.2727@vallauri.edu"
+  },
+  {
+    "_id": "USER2",
+    "username": "luigi_verdi",
+    "password": "password",
+    "nome": "Luigi Verdi",
+    "email": "d.pepe.2727@vallauri.edu"
+  }
+]
