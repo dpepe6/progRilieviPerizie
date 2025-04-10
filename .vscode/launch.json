@@ -16,19 +16,7 @@
                 "<node_internals>/**"
             ],
             "type": "node"
-        },
-        {
-            "console": "integratedTerminal",
-            "internalConsoleOptions": "neverOpen",
-            "name": "tsx",
-            "program": "${workspaceFolder}/server.ts",
-            "request": "launch",
-            "restart": true,
-            "runtimeExecutable": "tsx",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "type": "node"
-        },
+        }
+        
     ]
 }
