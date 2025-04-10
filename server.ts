@@ -22,6 +22,7 @@ const DBNAME = "rilieviPerizieDB";
 const COLLECTIONUTENTI = "utentiRilieviPerizieDB";
 const COLLECTIONPERIZIE = "perizieRilieviPerizieDB";
 const CONNECTION_STRING = process.env.connectionString;
+const ADMIN_ID = "ADMIN";
 // cloudinary.v2.config(JSON.parse(process.env.cloudinary as string));
 const whiteList = [
   "https://progettoassicurazioni-andreavaira.onrender.com",
@@ -134,6 +135,11 @@ app.post(
                     console.log("Password non corrispondente");
                     res.status(401).send("Password errata");
                   } else {
+                    let redPage = "pageOperatore.html";
+                    if(dbUser._id == ADMIN_ID) {
+                      redPage = "userArea.html";
+                    }
+                    res.setHeader("redPage", redPage);
                     let token = createToken(dbUser); // Assicurati che dbUser._id sia un ObjectId valido
                     res.setHeader("Authorization", token);
                     res.setHeader(
@@ -168,57 +174,12 @@ function createToken(user: any) {
     iat: user.iat || now,
     exp: now + DURATA_TOKEN,
     _id: user._id.toString(), // Usa .toString() per ottenere l'ID come stringa
-    email: user.email,
+    email: user.email
   };
   let token = jwt.sign(payload, privateKey);
   console.log("Creato nuovo token " + token);
   return token;
 }
-
-// 7 Bis gestione login google
-app.post(
-  "/api/googleLogin",
-  function (req: Request, res: Response, next: NextFunction) {
-    let googleToken = req.body.token;
-    let googleData: any = jwt.decode(googleToken);
-    console.log(googleData, null, 2);
-
-    let connection = new MongoClient(CONNECTION_STRING as string);
-    connection
-      .connect()
-      .then((client: MongoClient) => {
-        const collection = client.db(DBNAME).collection(COLLECTIONUTENTI);
-        let regex = new RegExp(`^${googleData.email}$`, "i");
-        collection
-          .findOne({ email: regex })
-          .then((dbUser: any) => {
-            if (!dbUser) {
-              res.status(401); // user o password non validi
-              res.send("User not found");
-            } else {
-              let token = createToken(dbUser);
-              res.setHeader("Authorization", token);
-              // Per permettere le richieste extra domain
-              res.setHeader("Access-Control-Expose-Headers", "Authorization");
-              res.send({ ris: "ok" });
-            }
-          })
-          .catch((err: Error) => {
-            res.status(500);
-            res.send("Query error " + err.message);
-            console.log(err.stack);
-          })
-          .finally(() => {
-            client.close();
-          });
-      })
-      .catch((err: Error) => {
-        res.status(503);
-        res.send("Database service unavailable");
-      });
-  }
-);
-
 // 8. gestione Logout
 
 // 9. Controllo del Token

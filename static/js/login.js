@@ -1,6 +1,7 @@
 "use strict";
 
 $(document).ready(function () {
+  // Inizializza gli elementi della pagina
   let _username = $("#usr");
   let _password = $("#pwd");
   let _lblErrore = $("#lblErrore");
@@ -47,9 +48,9 @@ $(document).ready(function () {
         if (token) {
           localStorage.setItem("token", token); // Salva il token
           console.log("Token salvato:", token);
-
+          
           // Reindirizza alla pagina successiva
-          window.location.href = "userArea.html";
+          window.location.href = jqXHR.getResponseHeader("redPage");
         } else {
           console.error("Token non ricevuto dal server.");
           _lblErrore.show();
