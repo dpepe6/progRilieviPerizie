@@ -180,7 +180,6 @@ function createToken(user: any) {
   console.log("Creato nuovo token " + token);
   return token;
 }
-// 8. gestione Logout
 
 // 9. Controllo del Token
 app.use("/api/verifyToken", function (req: any, res, next) {

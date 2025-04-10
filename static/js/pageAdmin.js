@@ -43,6 +43,11 @@ $(document).ready(function () {
       popolaMappa(perizie);
     });
   });
+
+  $('#btnLogout').on('click', async function () {
+    localStorage.removeItem('token');
+    window.location.href = 'login.html';
+  });
 });
 
 function documentReady() {

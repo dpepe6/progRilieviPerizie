@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>JWT</title>
+    <title>Admin</title>
     <link rel="icon" href="img/icoVallauri.png" type="image/png" />
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -35,18 +35,12 @@
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
+    
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only"></span></a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="#" id="btnFilter">Employee filter<span class="sr-only"></span></a>
-                </li>
-
-            </ul>
-            <button type="button" class="btn btn-success">Create new user</button>
+            <div class="ml-auto">
+                <button id="btnCreaUtente" class="btn btn-success mr-2">Crea nuovo utente</button>
+                <button id="btnLogout" class="btn btn-info">Logout</button>
+            </div>
         </div>
     </nav>
 
