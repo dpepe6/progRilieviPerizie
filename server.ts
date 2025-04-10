@@ -137,7 +137,7 @@ app.post(
                   } else {
                     let redPage = "pageOperatore.html";
                     if(dbUser._id == ADMIN_ID) {
-                      redPage = "userArea.html";
+                      redPage = "pageAdmin.html";
                     }
                     res.setHeader("redPage", redPage);
                     let token = createToken(dbUser); // Assicurati che dbUser._id sia un ObjectId valido
