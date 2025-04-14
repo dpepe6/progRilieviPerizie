@@ -272,7 +272,7 @@ app.get("/api/perizieUtente", (req: any, res: Response, next: NextFunction) => {
 });
 
 app.get("/api/perizie/:id", (req: any, res: Response, next: NextFunction) => {
-  let _id = new ObjectId(req.params.id);
+  let _id = req.params.id;
   let collection = req["connessione"].db(DBNAME).collection(COLLECTIONPERIZIE);
   collection.findOne({ _id: _id }, (err: Error, data: any) => {
     if (err) {

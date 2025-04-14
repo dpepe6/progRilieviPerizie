@@ -1,5 +1,8 @@
 "use strict";
 
+const LATSEDECENTRALE = 44.648498;
+const LONGSEDECENTRALE = 7.659901;
+
 function popolaMappa(perizie) {
   if (typeof maplibregl === "undefined") {
     console.error("MapLibre GL JS non è stato caricato correttamente.");
@@ -15,27 +18,27 @@ function popolaMappa(perizie) {
   let map = new maplibregl.Map({
     container: "map",
     style: `https://api.maptiler.com/maps/streets/style.json?key=${MAP_KEY}`,
-    center: [7.85, 44.69], // Centro sulla sede centrale
+    center: [LONGSEDECENTRALE, LATSEDECENTRALE], // Centro sulla sede centrale
     zoom: 13,
   });
 
   // Aggiungi il segnaposto per la sede centrale
   new maplibregl.Marker({ color: "blue" })
-    .setLngLat([7.85, 44.69])
+    .setLngLat([LONGSEDECENTRALE, LATSEDECENTRALE])
     .setPopup(new maplibregl.Popup().setHTML("<h3>Sede Centrale</h3>"))
     .addTo(map);
 
   // Aggiungi i segnaposti per le perizie
   for (const perizia of perizie) {
     let marker = new maplibregl.Marker()
-      .setLngLat([perizia.coordinate.longitude, perizia.coordinate.latitude])
+      .setLngLat([perizia.coordinate.lng, perizia.coordinate.lat])
       .addTo(map);
 
     // Aggiungi un popup al segnaposto
     let popup = new maplibregl.Popup({ offset: 25 }).setHTML(`
       <h3>Dettagli Perizia</h3>
       <p><b>Descrizione:</b> ${perizia.descrizione}</p>
-      <p><b>Commento:</b> ${perizia.foto[0]?.commento || "Nessun commento"}</p>
+      <p><b>Commento:</b> ${perizia.fotografie[0]?.commento || "Nessun commento"}</p>
       <button class="btn btn-primary btn-sm" onclick="visualizzaDettagli('${
         perizia._id
       }')">Visualizza dettagli</button>
@@ -49,9 +52,9 @@ function popolaMappa(perizie) {
 function visualizzaDettagli(periziaId) {
   let request = inviaRichiesta("GET", `/api/perizie/${periziaId}`);
   request.done(function (perizia) {
-    $("#dataOra").text(perizia["data-ora"]);
+    $("#dataOra").text(perizia.dataOra);
     $("#descrizionePerizia").val(perizia.descrizione);
-    $("#commentoFoto").val(perizia.foto[0]?.commento || "");
+    $("#commentoFoto").val(perizia.fotografie[0]?.commento || "");
     $("#dettagliPerizia").data("periziaId", periziaId);
 
     // Ottieni l'indirizzo dalle coordinate
@@ -62,9 +65,9 @@ function visualizzaDettagli(periziaId) {
     // Mostra le foto
     let fotoContainer = $("#fotoContainer");
     fotoContainer.empty();
-    for (const foto of perizia.foto) {
+    for (const foto of perizia.fotografie) {
       fotoContainer.append(
-        `<img src="${foto.img}" alt="Foto perizia" class="img-thumbnail" style="margin: 5px;">`
+        `<img src="${foto.url}" alt="Foto perizia" class="img-thumbnail" style="margin: 5px;">`
       );
     }
 
@@ -75,7 +78,7 @@ function visualizzaDettagli(periziaId) {
 
 // Funzione per ottenere l'indirizzo dalle coordinate
 function getIndirizzo(coordinate, callback) {
-  let url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${coordinate.latitude}&lon=${coordinate.longitude}`;
+  let url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${coordinate.lat}&lon=${coordinate.lng}`;
   $.getJSON(url, function (data) {
     if (data && data.display_name) {
       callback(data.display_name);
@@ -113,6 +116,7 @@ $(document).on("click", "#salvaCommento", function () {
   });
 });
 
+/*
 function disegnaPercorso(perizia, map) {
   // Esempio di disegno di un percorso (simulato)
   let coordinates = [
@@ -147,11 +151,11 @@ function disegnaPercorso(perizia, map) {
   });
 
   console.log("Percorso disegnato:", coordinates);
-}
+} */
 
 // Popola il filtro per operatori
 function popolaFiltroOperatori(perizie) {
-  let operatori = [...new Set(perizie.map((p) => p.codOperatore))]; // Estrai codici operatori unici
+  let operatori = [...new Set(perizie.map((p) => p.idUtente))]; // Estrai codici operatori unici
   let select = $("#operatoreSelect");
   select.empty();
   select.append(`<option value="all">Tutti</option>`);
@@ -166,7 +170,7 @@ function popolaFiltroOperatori(perizie) {
     let perizieFiltrate =
       operatoreSelezionato === "all"
         ? perizie
-        : perizie.filter((p) => p.codOperatore === operatoreSelezionato);
+        : perizie.filter((p) => p.idUtente === operatoreSelezionato);
 
     // Ripopola la mappa con le perizie filtrate
     popolaMappa(perizieFiltrate);

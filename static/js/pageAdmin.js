@@ -50,6 +50,7 @@ $(document).ready(function () {
   });
 });
 
+/*
 function documentReady() {
   $("#perizia").hide();
   $("#newUser").hide();
@@ -91,7 +92,7 @@ function documentReady() {
     });
   });
 
-  /**** carousel management *****/
+  // carousel management 
   $(".carousel-control-prev").on("click", function () {
     commenti.vetCommenti[commenti.index] = $(
       "#exampleFormControlTextarea2"
@@ -143,8 +144,8 @@ function documentReady() {
         $("#home").show();
       });
     });
-}
-
+}*/
+/*
 function popolaPerizia(perizia) {
   let divperizia = $("#dettagliPerizia");
   let requestOperatore = inviaRichiesta("GET", "/api/operatore", {
@@ -188,7 +189,7 @@ function popolaPerizia(perizia) {
   });
 
   $("#commentCarousel").children("button").eq(0).prop("id", perizia._id);
-}
+}*/
 
 function popolaOperatori(operatori) {
   console.log(operatori);
