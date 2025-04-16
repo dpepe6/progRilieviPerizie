@@ -45,7 +45,7 @@
     </nav>
 
     <!--Home-->
-    <div id="container" style="display: flex; flex-direction: row; height: 100vh;">
+    <div id="container" style="display: flex; flex-direction: row;">
         <!-- Sezione filtro -->
         <div id="filter" style="width: 20%; background-color: #f8f9fa; padding: 10px; overflow-y: auto; ">
             <h3>Filtra per operatore</h3>
@@ -72,6 +72,31 @@
             <h3 class="mt-4">Commenti</h3>
             <textarea id="commentoFoto" class="form-control" rows="4"></textarea>
             <button id="salvaCommento" class="btn btn-primary btn-sm mt-2">Salva Commento</button>
+        </div>
+    </div>
+
+    <!-- Modal Dettagli Perizia -->
+    <div class="modal fade" id="modalDettagliPerizia" tabindex="-1" aria-labelledby="modalDettagliPeriziaLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalDettagliPeriziaLabel">Dettagli Perizia</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p><b>Data e ora:</b> <span id="modalDataOra"></span></p>
+                    <p><b>Indirizzo:</b> <span id="modalIndirizzo"></span></p>
+                    <p><b>Descrizione:</b></p>
+                    <textarea id="modalDescrizionePerizia" class="form-control" rows="4" readonly></textarea>
+                    <h3 class="mt-4">Foto</h3>
+                    <div id="modalFotoContainer" style="display: flex; flex-wrap: wrap;"></div>
+                    <h3 class="mt-4">Commenti</h3>
+                    <textarea id="modalCommentoFoto" class="form-control" rows="4" readonly></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                </div>
+            </div>
         </div>
     </div>
 

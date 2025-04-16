@@ -242,3 +242,4 @@ function popolaOperatori(operatori) {
     $("#filter").children("ul").eq(0).append(li);
   }
 }
+
