@@ -47,7 +47,6 @@ function popolaMappa(perizie) {
 
     marker.setPopup(popup);
   }
-  popolaFiltroOperatori(perizie);
 }
 
 function ricavaDataOraFormat(dataOra, estraiData, estraiOra){

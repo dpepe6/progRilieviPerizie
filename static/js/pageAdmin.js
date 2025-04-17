@@ -41,6 +41,7 @@ $(document).ready(function () {
     perizieRequest.fail(errore);
     perizieRequest.done(function (perizie) {
       popolaMappa(perizie);
+      popolaFiltroOperatori(perizie);
     });
   });
 
