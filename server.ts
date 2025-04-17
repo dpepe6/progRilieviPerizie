@@ -285,7 +285,7 @@ app.get("/api/perizie/:id", (req: any, res: Response, next: NextFunction) => {
 });
 
 app.put("/api/perizie/:id", (req: any, res: Response, next: NextFunction) => {
-  let _id = new ObjectId(req.params.id);
+  let _id = req.params.id;
   let collection = req["connessione"].db(DBNAME).collection(COLLECTIONPERIZIE);
   collection.updateOne(
     { _id: _id },
@@ -301,25 +301,23 @@ app.put("/api/perizie/:id", (req: any, res: Response, next: NextFunction) => {
   );
 });
 
-app.put(
-  "/api/perizieCommento/:id",
-  (req: any, res: Response, next: NextFunction) => {
-    let _id = new ObjectId(req.params.id);
-    let collection = req["connessione"].db(DBNAME).collection(COLLECTIONPERIZIE);
-    collection.updateOne(
-      { _id: _id },
-      { $set: { "foto.0.commento": req.body.commento } },
-      (err: Error, data: any) => {
-        if (err) {
-          res.status(500).send("Errore aggiornamento commento");
-        } else {
-          res.send("Commento aggiornato con successo");
-        }
-        req["connessione"].close();
+app.put("/api/perizie/:id/:idFoto", (req: any, res: Response, next: NextFunction) => {
+  let _id = req.params.id;
+  let idFoto = req.params.idFoto;
+  let collection = req["connessione"].db(DBNAME).collection(COLLECTIONPERIZIE);
+  collection.updateOne(
+    { _id: _id, "fotografie.idFoto": idFoto },
+    { $set: { "fotografie.$.commento": req.body.commento } },
+    (err: Error, data: any) => {
+      if (err) {
+        res.status(500).send("Errore aggiornamento descrizione");
+      } else {
+        res.send("Descrizione aggiornata con successo");
       }
-    );
-  }
-);
+      req["connessione"].close();
+    }
+  );
+});
 
 app.get("/api/operatore", (req: any, res: Response, next: NextFunction) => {
   let _id = new ObjectId(req.query._id);

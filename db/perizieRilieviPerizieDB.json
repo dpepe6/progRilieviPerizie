@@ -1,5 +1,3 @@
-
-
 [ 
   {
     "_id": "PER1",
@@ -8,14 +6,16 @@
     "coordinate": { "lat": 44.646124, "lng": 7.654039 },
     "descrizione": "Mancata precedenza alla rotonda.",
     "fotografie": [
-        {
-            "url": "https://wips.plug.it/cips/paginegialle.it/magazine/cms/2019/03/28154968_s-cropped.jpg?w=744&h=418&a=c",
-            "commento":"Veicolo A"
-        },
-        {
-            "url": "https://img.gruppomol.it/articoli/image/auto/1200x675_Depositphotos_40248311_xl-2015.jpg",
-            "commento":"Veicolo B"
-        }
+      { 
+        "idFoto": "FOTO1",
+        "url": "https://wips.plug.it/cips/paginegialle.it/magazine/cms/2019/03/28154968_s-cropped.jpg?w=744&h=418&a=c",
+        "commento":"Veicolo A"
+      },
+      {
+        "idFoto": "FOTO2",
+        "url": "https://img.gruppomol.it/articoli/image/auto/1200x675_Depositphotos_40248311_xl-2015.jpg",
+        "commento":"Veicolo B"
+      }
     ]
   },
   {
@@ -25,10 +25,11 @@
     "coordinate": { "lat": 44.705898, "lng": 7.687379 },
     "descrizione": "Mancato stop all'incrocio.",
     "fotografie": [
-        {
-            "url": "aggiungere foto",
-            "commento":"Danno veicolo A"
-        }
+      {
+        "idFoto": "FOTO1",
+        "url": "aggiungere foto",
+        "commento":"Danno veicolo A"
+      }
     ]
   },
   {
@@ -38,10 +39,11 @@
     "coordinate": { "lat": 44.656829, "lng": 7.715956 },
     "descrizione": "Tamponamento in rotonda.",
     "fotografie": [
-        {
-            "url": "aggiungere foto",
-            "commento":"Danno Veicolo B"
-        }
+      {
+        "idFoto": "FOTO1",
+        "url": "aggiungere foto",
+        "commento":"Danno Veicolo B"
+      }
     ]
   }
 ]

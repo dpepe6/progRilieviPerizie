@@ -37,22 +37,45 @@ function popolaMappa(perizie) {
     // Aggiungi un popup al segnaposto
     let popup = new maplibregl.Popup({ offset: 25 }).setHTML(`
       <h3>Dettagli Perizia</h3>
-      <p><b>Descrizione:</b> ${perizia.descrizione}</p>
-      <p><b>Commento:</b> ${perizia.fotografie[0]?.commento || "Nessun commento"}</p>
+      <p><b>Data:</b> ${ricavaDataOraFormat(perizia.dataOra, true, false)}</p>
+      <p><b>Ora:</b> ${ricavaDataOraFormat(perizia.dataOra, false, true)}</p>
+      <p id="descPerizia${perizia._id}"><b>Descrizione:</b> ${perizia.descrizione}</p>
       <button class="btn btn-primary btn-sm" onclick="visualizzaDettagli('${
         perizia._id
       }')">Visualizza dettagli</button>
     `);
+
     marker.setPopup(popup);
   }
   popolaFiltroOperatori(perizie);
 }
 
+function ricavaDataOraFormat(dataOra, estraiData, estraiOra){
+  let dataOraFormat = "";
+  let dataOraJS = new Date(dataOra);
+
+  if(estraiData) {
+    let giorno = String(dataOraJS.getDate()).padStart(2, '0');
+    let mese = String(dataOraJS.getMonth() + 1).padStart(2, '0');
+    let anno = dataOraJS.getFullYear();
+    dataOraFormat += `${giorno}/${mese}/${anno}`;
+  }
+  if(estraiOra) {
+    let ore = String(dataOraJS.getHours()).padStart(2, '0');
+    let minuti = String(dataOraJS.getMinutes()).padStart(2, '0');
+    dataOraFormat += `${estraiData?" ":""}${ore}:${minuti}`;
+  }
+
+  return dataOraFormat;
+}
+
+
 // Funzione per visualizzare i dettagli della perizia
 function visualizzaDettagli(periziaId) {
   let request = inviaRichiesta("GET", `/api/perizie/${periziaId}`);
   request.done(function (perizia) {
-    $("#dataOra").text(perizia.dataOra);
+    $("#data").text(ricavaDataOraFormat(perizia.dataOra, true, false));
+    $("#ora").text(ricavaDataOraFormat(perizia.dataOra, false, true));
     $("#descrizionePerizia").val(perizia.descrizione);
     $("#commentoFoto").val(perizia.fotografie[0]?.commento || "");
     $("#dettagliPerizia").data("periziaId", periziaId);
@@ -65,10 +88,19 @@ function visualizzaDettagli(periziaId) {
     // Mostra le foto
     let fotoContainer = $("#fotoContainer");
     fotoContainer.empty();
+    let iFoto = 1;
+    
     for (const foto of perizia.fotografie) {
+      fotoContainer.append(
+        `<p><b>Foto ${iFoto}:</b></p>`
+      );
       fotoContainer.append(
         `<img src="${foto.url}" alt="Foto perizia" class="img-thumbnail" style="margin: 5px;">`
       );
+      fotoContainer.append(
+        `<textarea id="commentoFoto${foto.idFoto}" class="form-control commentiFoto" rows="4">${foto.commento}</textarea>`
+      );
+      iFoto++;
     }
 
     // Mostra la sezione dei dettagli con animazione
@@ -92,66 +124,24 @@ function getIndirizzo(coordinate, callback) {
 $(document).on("click", "#salvaDescrizione", function () {
   let nuovaDescrizione = $("#descrizionePerizia").val();
   let periziaId = $("#dettagliPerizia").data("periziaId");
+  $(`#descPerizia${periziaId}`).html(`<b>Descrizione:</b> ${nuovaDescrizione}`);
 
-  let request = inviaRichiesta("PUT", `/api/perizie/${periziaId}`, {
+  inviaRichiesta("PUT", `/api/perizie/${periziaId}`, {
     descrizione: nuovaDescrizione,
-  });
-
-  request.done(function () {
-    alert("Descrizione aggiornata con successo!");
   });
 });
 
 // Salva il commento della foto
 $(document).on("click", "#salvaCommento", function () {
-  let nuovoCommento = $("#commentoFoto").val();
   let periziaId = $("#dettagliPerizia").data("periziaId");
-
-  let request = inviaRichiesta("PUT", `/api/perizie/${periziaId}`, {
-    commento: nuovoCommento,
-  });
-
-  request.done(function () {
-    alert("Commento aggiornato con successo!");
-  });
+  let commentiFoto = $(".commentiFoto");
+  for (const commento of commentiFoto) {
+    let idFoto = $(commento).prop("id").replace("commentoFoto", "");
+    inviaRichiesta("PUT", `/api/perizie/${periziaId}/${idFoto}`, {
+      commento: $(commento).val()
+    });
+  }
 });
-
-/*
-function disegnaPercorso(perizia, map) {
-  // Esempio di disegno di un percorso (simulato)
-  let coordinates = [
-    [10.0, 45.0], // Punto di partenza (esempio)
-    [perizia.coordinate.longitude, perizia.coordinate.latitude], // Destinazione
-  ];
-
-  map.addSource("route", {
-    type: "geojson",
-    data: {
-      type: "Feature",
-      properties: {},
-      geometry: {
-        type: "LineString",
-        coordinates: coordinates,
-      },
-    },
-  });
-
-  map.addLayer({
-    id: "route",
-    type: "line",
-    source: "route",
-    layout: {
-      "line-join": "round",
-      "line-cap": "round",
-    },
-    paint: {
-      "line-color": "#3b9ddd",
-      "line-width": 5,
-    },
-  });
-
-  console.log("Percorso disegnato:", coordinates);
-} */
 
 // Popola il filtro per operatori
 function popolaFiltroOperatori(perizie) {

@@ -48,6 +48,10 @@ $(document).ready(function () {
     localStorage.removeItem('token');
     window.location.href = 'login.html';
   });
+
+  $("#btnDhiudiDettagli").on("click", function () {
+    $("#dettagliPerizia").hide();
+  })
 });
 
 /*
