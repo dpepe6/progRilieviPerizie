@@ -56,3 +56,13 @@ h3 {
 #btnCreateUser:hover {
     background-color: #574b90;
 }
+
+.icona-rossa {
+    color: #dc3545;
+    border: 1px solid #dc3545;
+    padding: 16px; 
+    width: 100%; 
+    border-radius: 8px; 
+    margin: 18px auto; 
+    font-size: 1.2rem; 
+}

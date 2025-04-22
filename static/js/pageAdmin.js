@@ -45,6 +45,10 @@ $(document).ready(function () {
     });
   });
 
+  $("#btnCreaUtente").on("click", function () {
+    window.location.href = "creaNuovoUtente.html";
+  });
+
   $('#btnLogout').on('click', async function () {
     localStorage.removeItem('token');
     window.location.href = 'login.html';
