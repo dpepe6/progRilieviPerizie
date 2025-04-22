@@ -60,46 +60,21 @@
         </div>
 
         <!-- Sezione dettagli -->
-        <div id="dettagliPerizia" style="flex: 1; background-color: #f8f9fa; padding: 20px; overflow-y: auto; display: none;">
-			<button type="button" id="btnDhiudiDettagli" class="close">&times;</button>
-            <h3>Dettagli Perizia</h3>
-            <p><b>Data:</b> <span id="data"></span></p>
-            <p><b>Ora:</b> <span id="ora"></span></p>
-            <p><b>Indirizzo:</b> <span id="indirizzo"></span></p>
-            <p><b>Descrizione:</b></p>
-            <textarea id="descrizionePerizia" class="form-control" rows="4"></textarea>
-            <button id="salvaDescrizione" class="btn btn-success btn-sm mt-2">Salva Descrizione</button>
-            <h3 class="mt-4">Foto</h3>
-            <div id="fotoContainer" style="display: flex; flex-wrap: wrap;"></div>
-            <button id="salvaCommento" class="btn btn-primary btn-sm mt-2">Salva Commenti</button>
-        </div>
     </div>
 
-    <!-- Modal Dettagli Perizia -->
-    <div class="modal fade" id="modalDettagliPerizia" tabindex="-1" aria-labelledby="modalDettagliPeriziaLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalDettagliPeriziaLabel">Dettagli Perizia</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p><b>Data e ora:</b> <span id="modalDataOra"></span></p>
-                    <p><b>Indirizzo:</b> <span id="modalIndirizzo"></span></p>
-                    <p><b>Descrizione:</b></p>
-                    <textarea id="modalDescrizionePerizia" class="form-control" rows="4" readonly></textarea>
-                    <h3 class="mt-4">Foto</h3>
-                    <div id="modalFotoContainer" style="display: flex; flex-wrap: wrap;"></div>
-                    <h3 class="mt-4">Commenti</h3>
-                    <textarea id="modalCommentoFoto" class="form-control" rows="4" readonly></textarea>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
-                </div>
-            </div>
-        </div>
+    <div id="dettagliPerizia">
+        <button type="button" id="btnDhiudiDettagli" class="close">&times;</button>
+        <h3>Dettagli Perizia</h3>
+        <p><b>Data:</b> <span id="data"></span></p>
+        <p><b>Ora:</b> <span id="ora"></span></p>
+        <p><b>Indirizzo:</b> <span id="indirizzo"></span></p>
+        <p><b>Descrizione:</b></p>
+        <textarea id="descrizionePerizia" class="form-control" rows="4"></textarea>
+        <button id="salvaDescrizione" class="btn btn-success btn-sm mt-2">Salva Descrizione</button>
+        <h3 class="mt-4">Foto</h3>
+        <div id="fotoContainer" style="display: flex; flex-wrap: wrap;"></div>
+        <button id="salvaCommento" class="btn btn-primary btn-sm mt-2">Salva Commenti</button>
     </div>
-
     <!-- <div id="perizia">
         <div id="dettagliPerizia">
             <h3>Nome Operatore</h3>

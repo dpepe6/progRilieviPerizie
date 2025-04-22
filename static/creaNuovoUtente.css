@@ -1,0 +1,58 @@
+body {
+    background: linear-gradient(135deg, #2c3e50, #4ca1af); /* Sfondo accattivante */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    color: #fff;
+}
+
+#newUserCard {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    padding: 50px; /* Aumentato il padding */
+    width: 500px; /* Aumentata la larghezza */
+    text-align: center;
+}
+
+h3 {
+    font-size: 2rem; /* Aumentata la dimensione del titolo */
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.form-label {
+    font-weight: bold;
+    color: #555;
+    text-align: left;
+    display: block;
+    margin-bottom: 12px;
+    font-size: 1.3rem; /* Aumentata la dimensione del testo */
+}
+
+.form-control {
+    border-radius: 10px;
+    border: 1px solid #bbb;
+    padding: 18px; /* Aumentato il padding */
+    margin-bottom: 25px; /* Maggiore spazio tra i campi */
+    font-size: 1.3rem; /* Aumentata la dimensione del testo */
+}
+
+#btnCreateUser {
+    background-color: #6c63ff;
+    border: none;
+    color: #fff;
+    padding: 18px 35px; /* Aumentato il padding */
+    font-size: 1.5rem; /* Aumentata la dimensione del pulsante */
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+#btnCreateUser:hover {
+    background-color: #574b90;
+}
