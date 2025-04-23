@@ -61,32 +61,6 @@ $(document).ready(function () {
         });
       })
       .fail(errore);
-      /*
-      let request = inviaRichiesta("POST", "/api/creaNuovoUtente", {
-        username: _username.val(),
-        nomeCognome: _nomeCognome.val(),
-        email: _email.val()
-      });
-
-      request.fail(function (jqXHR, test_status, str_error) {
-        if (jqXHR.status == 409) {
-          // conflitto
-          _lblErroreUsername.show();
-        } else errore(jqXHR, test_status, str_error);
-      });
-
-      request.done(function (data, test_status, jqXHR) {
-        const token = jqXHR.getResponseHeader("Authorization");
-        if (token) {
-          localStorage.setItem("token", token); // Salva il token
-          console.log("Token salvato:", token);
-          window.location.href = jqXHR.getResponseHeader("redPage");
-        } else {
-          console.error("Token non ricevuto dal server.");
-          _lblErroreUsername.show();
-        }
-      });
-      */
     } else
     {
       if (!controllaUsername(_username.val())) {

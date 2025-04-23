@@ -28,25 +28,38 @@ function popolaMappa(perizie) {
     .setPopup(new maplibregl.Popup().setHTML("<h3>Sede Centrale</h3>"))
     .addTo(map);
 
-  // Aggiungi i segnaposti per le perizie
-  for (const perizia of perizie) {
-    let marker = new maplibregl.Marker()
-      .setLngLat([perizia.coordinate.lng, perizia.coordinate.lat])
-      .addTo(map);
+  inviaRichiesta("GET", "/api/idUtenti")
+  .done(function (data) {
+    // Aggiungi i segnaposti per le perizie
+    for (const perizia of perizie) {
+      let marker = new maplibregl.Marker()
+        .setLngLat([perizia.coordinate.lng, perizia.coordinate.lat])
+        .addTo(map);
 
-    // Aggiungi un popup al segnaposto
-    let popup = new maplibregl.Popup({ offset: 25 }).setHTML(`
-      <h3>Dettagli Perizia</h3>
-      <p><b>Data:</b> ${ricavaDataOraFormat(perizia.dataOra, true, false)}</p>
-      <p><b>Ora:</b> ${ricavaDataOraFormat(perizia.dataOra, false, true)}</p>
-      <p id="descPerizia${perizia._id}"><b>Descrizione:</b> ${perizia.descrizione}</p>
-      <button class="btn btn-primary btn-sm" onclick="visualizzaDettagli('${
-        perizia._id
-      }')">Visualizza dettagli</button>
-    `);
+      let nomeUtente = "";
+      for(const utente of data) {
+        if (utente._id == perizia.idUtente) {
+          nomeUtente = utente.nome;
+          break; // Esci dal ciclo una volta trovato l'operatore
+        }
+      }
 
-    marker.setPopup(popup);
-  }
+      // Aggiungi un popup al segnaposto
+      let popup = new maplibregl.Popup({ offset: 25 }).setHTML(`
+        <h3>Dettagli Perizia</h3>
+        <p><b>Perito:</b> ${nomeUtente}</p>
+        <p><b>Data:</b> ${ricavaDataOraFormat(perizia.dataOra, true, false)}</p>
+        <p><b>Ora:</b> ${ricavaDataOraFormat(perizia.dataOra, false, true)}</p>
+        <p id="descPerizia${perizia._id}"><b>Descrizione:</b> ${perizia.descrizione}</p>
+        <button class="btn btn-primary btn-sm" onclick="visualizzaDettagli('${
+          perizia._id
+        }')">Visualizza dettagli</button>
+      `);
+
+      marker.setPopup(popup);
+    }
+  })
+  .fail(errore);
 }
 
 function ricavaDataOraFormat(dataOra, estraiData, estraiOra){
@@ -73,37 +86,52 @@ function ricavaDataOraFormat(dataOra, estraiData, estraiOra){
 function visualizzaDettagli(periziaId) {
   let request = inviaRichiesta("GET", `/api/perizie/${periziaId}`);
   request.done(function (perizia) {
-    $("#data").text(ricavaDataOraFormat(perizia.dataOra, true, false));
-    $("#ora").text(ricavaDataOraFormat(perizia.dataOra, false, true));
-    $("#descrizionePerizia").val(perizia.descrizione);
-    $("#commentoFoto").val(perizia.fotografie[0]?.commento || "");
-    $("#dettagliPerizia").data("periziaId", periziaId);
+    inviaRichiesta("GET", "/api/idUtenti")
+    .done(function (data) {
+      console.log("utenti:", data);
+      let nomeUtente = "";
+      for(const utente of data) {
+        if (utente._id == perizia.idUtente) {
+          nomeUtente = utente.nome;
+          break; // Esci dal ciclo una volta trovato l'operatore
+        }
+      }
 
-    // Ottieni l'indirizzo dalle coordinate
-    getIndirizzo(perizia.coordinate, function (indirizzo) {
-      $("#indirizzo").text(indirizzo || "Indirizzo non disponibile");
-    });
+      $("#nomeUtente").text(nomeUtente);
+      $("#data").text(ricavaDataOraFormat(perizia.dataOra, true, false));
+      $("#ora").text(ricavaDataOraFormat(perizia.dataOra, false, true));
+      $("#descrizionePerizia").val(perizia.descrizione);
+      $("#commentoFoto").val(perizia.fotografie[0]?.commento || "");
+      $("#dettagliPerizia").data("periziaId", periziaId);
+  
+      // Ottieni l'indirizzo dalle coordinate
+      getIndirizzo(perizia.coordinate, function (indirizzo) {
+        $("#indirizzo").text(indirizzo || "Indirizzo non disponibile");
+      });
+  
+      // Mostra le foto
+      let fotoContainer = $("#fotoContainer");
+      fotoContainer.empty();
+      let iFoto = 1;
+      
+      for (const foto of perizia.fotografie) {
+        fotoContainer.append(
+          `<p><b>Foto ${iFoto}:</b></p>`
+        );
+        fotoContainer.append(
+          `<img src="${foto.url}" alt="Foto perizia" class="img-thumbnail" style="margin: 5px;">`
+        );
+        fotoContainer.append(
+          `<textarea id="commentoFoto${foto.idFoto}" class="form-control commentiFoto" rows="4">${foto.commento}</textarea>`
+        );
+        iFoto++;
+      }
+  
+      // Mostra la sezione dei dettagli con animazione
+      $("#dettagliPerizia").fadeIn(500);
 
-    // Mostra le foto
-    let fotoContainer = $("#fotoContainer");
-    fotoContainer.empty();
-    let iFoto = 1;
-    
-    for (const foto of perizia.fotografie) {
-      fotoContainer.append(
-        `<p><b>Foto ${iFoto}:</b></p>`
-      );
-      fotoContainer.append(
-        `<img src="${foto.url}" alt="Foto perizia" class="img-thumbnail" style="margin: 5px;">`
-      );
-      fotoContainer.append(
-        `<textarea id="commentoFoto${foto.idFoto}" class="form-control commentiFoto" rows="4">${foto.commento}</textarea>`
-      );
-      iFoto++;
-    }
-
-    // Mostra la sezione dei dettagli con animazione
-    $("#dettagliPerizia").fadeIn(500);
+    })
+    .fail(errore);
   });
 }
 
