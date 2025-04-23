@@ -57,6 +57,22 @@ h3 {
     background-color: #574b90;
 }
 
+#btnChiudi {
+    background-color: #dc3545;
+    border: none;
+    color: #fff;
+    padding: 18px 35px; /* Aumentato il padding */
+    font-size: 1.5rem; /* Aumentata la dimensione del pulsante */
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+#btnChiudi:hover {
+    background-color: #b00000;
+}
+
 .icona-rossa {
     color: #dc3545;
     border: 1px solid #dc3545;

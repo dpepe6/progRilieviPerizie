@@ -29,6 +29,8 @@ $(document).ready(function () {
   _lblErroreNomeCognome.hide();
   _lblErroreEmail.hide();
 
+  _lblErroreUsername.html("L'username deve essere lungo almeno 4 caratteri!");
+
   $("#btnCreateUser").on("click", function (event) {
     //window.location.href = "login.html";
     _lblErroreUsername.hide();
@@ -48,19 +50,47 @@ $(document).ready(function () {
         nomeCognome: _nomeCognome.val(),
         email: _email.val()
       });
-      
-      inviaRichiesta("GET", "/api/idUtenti")
-      .done(function (data) {
-        console.log("utenti:", data);
-        let idUtente = `USER${data.length}`;
-        let request = inviaRichiesta("POST", "/api/creaNuovoUtente", {
-          id: idUtente,
-          username: _username.val(),
-          nomeCognome: _nomeCognome.val(),
-          email: _email.val()
-        });
+
+      inviaRichiesta("GET", "/api/controlloUsername", { username: _username.val() })
+      .done(function (dataControlloUsername) {
+        if(dataControlloUsername.length == 0){
+          inviaRichiesta("GET", "/api/idUtenti")
+          .done(function (data) {
+            console.log("utenti:", data);
+            let idUtente = `USER${data.length}`;
+            let request = inviaRichiesta("POST", "/api/creaNuovoUtente", {
+              id: idUtente,
+              username: _username.val(),
+              nomeCognome: _nomeCognome.val(),
+              email: _email.val()
+            });
+    
+            $("#email").val("");
+            $("#username").val("");
+            $("#nomeCognome").val("");
+    
+            _lblErroreUsername.hide();
+            _lblErroreNomeCognome.hide();
+            _lblErroreEmail.hide();
+        
+            _username.removeClass("is-invalid");
+            _username.removeClass("icona-rossa");
+            _nomeCognome.removeClass("is-invalid");
+            _nomeCognome.removeClass("icona-rossa");
+            _email.removeClass("is-invalid");
+            _email.removeClass("icona-rossa");
+    
+          })
+          .fail(errore);
+        } else {
+          _username.addClass("is-invalid");
+          _username.addClass("icona-rossa");
+          _lblErroreUsername.html("Username già esistente");
+          _lblErroreUsername.show();
+        }
       })
       .fail(errore);
+      
     } else
     {
       if (!controllaUsername(_username.val())) {
@@ -110,4 +140,8 @@ $(document).ready(function () {
     }
     return true;
   }
+
+  $("#btnChiudi").on("click", function () {
+    window.location.href = "pageAdmin.html";
+  });
 });

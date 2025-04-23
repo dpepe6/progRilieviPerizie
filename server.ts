@@ -319,20 +319,6 @@ app.put("/api/perizie/:id/:idFoto", (req: any, res: Response, next: NextFunction
   );
 });
 
-app.get("/api/operatore", (req: any, res: Response, next: NextFunction) => {
-  let _id = new ObjectId(req.query._id);
-  let collection = req["connessione"].db(DBNAME).collection(COLLECTIONUTENTI);
-  collection.find({ _id: _id }).toArray((err: Error, data: any) => {
-    if (err) {
-      res.status(500);
-      res.send("Errore esecuzione query");
-    } else {
-      res.send(data);
-    }
-    req["connessione"].close();
-  });
-});
-
 app.post(
   "/api/aggiornaPerizia",
   (req: any, res: Response, next: NextFunction) => {
@@ -384,6 +370,20 @@ app.get("/api/idUtenti", (req: any, res: Response, next: NextFunction) => {
   });
 });
 
+app.get("/api/controlloUsername", (req: any, res: Response, next: NextFunction) => {
+  let username = req.query.username;
+  let collection = req["connessione"].db(DBNAME).collection(COLLECTIONUTENTI);
+  collection.find({ username : username }).toArray((err: Error, data: any) => {
+    if (err) {
+      res.status(500);
+      res.send("Errore esecuzione query");
+    } else {
+      res.send(data);
+    }
+    req["connessione"].close();
+  });
+});
+
 app.post("/api/creaNuovoUtente", (req: any, res: Response, next: NextFunction) => {
   let username = req.body.username;
   let nomeCognome = req.body.nomeCognome;
@@ -397,7 +397,8 @@ app.post("/api/creaNuovoUtente", (req: any, res: Response, next: NextFunction) =
         username: username,
         password: hash,
         nome: nomeCognome,
-        email: email
+        email: email,
+        primoAccesso: 1
       };
 
       let collection = req["connessione"]
@@ -413,21 +414,6 @@ app.post("/api/creaNuovoUtente", (req: any, res: Response, next: NextFunction) =
         req["connessione"].close();
       });
     });
-  });
-});
-
-app.get("/api/operatore1", (req: any, res: Response, next: NextFunction) => {
-  let collection = req["connessione"].db(DBNAME).collection(COLLECTIONUTENTI);
-  console.log(req["payload"]._id);
-  let _id = new ObjectId(req["payload"]._id);
-  collection.find({ _id }).toArray((err: Error, data: any) => {
-    if (err) {
-      res.status(500);
-      res.send("Errore esecuzione query");
-    } else {
-      res.send(data);
-    }
-    req["connessione"].close();
   });
 });
 
