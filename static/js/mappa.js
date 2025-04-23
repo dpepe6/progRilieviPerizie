@@ -149,21 +149,32 @@ function popolaFiltroOperatori(perizie) {
   select.empty();
   select.append(`<option value="all">Tutti</option>`);
 
-  for (const operatore of operatori) {
-    select.append(`<option value="${operatore}">${operatore}</option>`);
-  }
-
-  // Aggiungi evento per filtrare le perizie
-  select.on("change", function () {
-    $("#dettagliPerizia").hide()
-    let operatoreSelezionato = $(this).val();
-    let perizieFiltrate =
-      operatoreSelezionato === "all"
-        ? perizie
-        : perizie.filter((p) => p.idUtente === operatoreSelezionato);
-
-    // Ripopola la mappa con le perizie filtrate
-    popolaMappa(perizieFiltrate);
-    select.val(operatoreSelezionato);
-  });
+  inviaRichiesta("GET", "/api/idUtenti")
+  .done(function (data) {
+    console.log("utenti:", data);
+    for (const operatore of operatori) {
+      let nomeUtente = "";
+      for(const utente of data) {
+        if (utente._id == operatore) {
+          nomeUtente = utente.nome;
+          break; // Esci dal ciclo una volta trovato l'operatore
+        }
+      }
+      select.append(`<option value="${operatore}">${nomeUtente}</option>`);
+    }
+    // Aggiungi evento per filtrare le perizie
+    select.on("change", function () {
+      $("#dettagliPerizia").hide()
+      let operatoreSelezionato = $(this).val();
+      let perizieFiltrate =
+        operatoreSelezionato === "all"
+          ? perizie
+          : perizie.filter((p) => p.idUtente === operatoreSelezionato);
+  
+      // Ripopola la mappa con le perizie filtrate
+      popolaMappa(perizieFiltrate);
+      select.val(operatoreSelezionato);
+    });
+  })
+  .fail(errore);
 }

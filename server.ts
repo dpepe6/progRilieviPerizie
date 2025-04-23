@@ -373,7 +373,7 @@ app.get("/api/operatori", (req: any, res: Response, next: NextFunction) => {
 
 app.get("/api/idUtenti", (req: any, res: Response, next: NextFunction) => {
   let collection = req["connessione"].db(DBNAME).collection(COLLECTIONUTENTI);
-  collection.find({}).project({ "_id": 1 }).toArray((err: Error, data: any) => {
+  collection.find({}).project({ "_id": 1, "nome": 1 }).toArray((err: Error, data: any) => {
     if (err) {
       res.status(500);
       res.send("Errore esecuzione query");
