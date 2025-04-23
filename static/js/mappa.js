@@ -155,6 +155,7 @@ function popolaFiltroOperatori(perizie) {
 
   // Aggiungi evento per filtrare le perizie
   select.on("change", function () {
+    $("#dettagliPerizia").hide()
     let operatoreSelezionato = $(this).val();
     let perizieFiltrate =
       operatoreSelezionato === "all"

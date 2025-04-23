@@ -48,6 +48,19 @@ $(document).ready(function () {
         nomeCognome: _nomeCognome.val(),
         email: _email.val()
       });
+      
+      inviaRichiesta("GET", "/api/idUtenti")
+      .done(function (data) {
+        console.log("utenti:", data);
+        let idUtente = `USER${data.length}`;
+        let request = inviaRichiesta("POST", "/api/creaNuovoUtente", {
+          id: idUtente,
+          username: _username.val(),
+          nomeCognome: _nomeCognome.val(),
+          email: _email.val()
+        });
+      })
+      .fail(errore);
       /*
       let request = inviaRichiesta("POST", "/api/creaNuovoUtente", {
         username: _username.val(),

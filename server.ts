@@ -5,7 +5,7 @@ import http from "http";
 import https from "https";
 import fs from "fs";
 import express from "express"; // @types/express
-import { Request, Response, NextFunction } from "express";
+import e, { Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
 import { Double, MongoClient, ObjectId } from "mongodb";
 import cors from "cors"; // @types/cors
@@ -371,18 +371,33 @@ app.get("/api/operatori", (req: any, res: Response, next: NextFunction) => {
   });
 });
 
-app.post("/api/employ", (req: any, res: Response, next: NextFunction) => {
-  let nome = req.body.name;
-  let mail = req.body.mail;
+app.get("/api/idUtenti", (req: any, res: Response, next: NextFunction) => {
+  let collection = req["connessione"].db(DBNAME).collection(COLLECTIONUTENTI);
+  collection.find({}).project({ "_id": 1 }).toArray((err: Error, data: any) => {
+    if (err) {
+      res.status(500);
+      res.send("Errore esecuzione query");
+    } else {
+      res.send(data);
+    }
+    req["connessione"].close();
+  });
+});
+
+app.post("/api/creaNuovoUtente", (req: any, res: Response, next: NextFunction) => {
+  let username = req.body.username;
+  let nomeCognome = req.body.nomeCognome;
+  let email = req.body.email;
+  let _id = req.body.id;
+
   bcrypt.genSalt(10, function (err, salt) {
     bcrypt.hash("password", salt, function (err, hash) {
       let record = {
+        _id: _id,
+        username: username,
         password: hash,
-        nome: nome,
-        mail: mail,
-        nPerizie: "0",
-        '"img"':
-          "https://res.cloudinary.com/dfrqbcbln/image/upload/v1672932919/assicurazioni/img_avatar_e9p0bx.png",
+        nome: nomeCognome,
+        email: email
       };
 
       let collection = req["connessione"]
