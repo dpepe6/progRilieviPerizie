@@ -7,7 +7,7 @@ import fs from "fs";
 import express from "express"; // @types/express
 import e, { Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
-import { Double, MongoClient, ObjectId } from "mongodb";
+import { Double, MongoClient, ObjectId, ServerApiVersion } from "mongodb";
 import cors from "cors"; // @types/cors
 import fileUpload, { UploadedFile } from "express-fileupload";
 import cloudinary, { UploadApiResponse } from "cloudinary";
@@ -21,7 +21,7 @@ const HTTP_PORT = process.env.PORT || 3000; // Cambia 1337 in 3000 o un'altra po
 const DBNAME = "rilieviPerizieDB";
 const COLLECTIONUTENTI = "utentiRilieviPerizieDB";
 const COLLECTIONPERIZIE = "perizieRilieviPerizieDB";
-const CONNECTION_STRING = process.env.connectionString;
+const CONNECTION_STRING = process.env.MONGO_URL;
 const ADMIN_ID = "ADMIN";
 // cloudinary.v2.config(JSON.parse(process.env.cloudinary as string));
 const whiteList = [
@@ -109,8 +109,16 @@ app.post(
     if (!req.body.username || !req.body.password) {
       return res.status(400).send("Dati mancanti nel corpo della richiesta.");
     }
-
-    let connection = new MongoClient(CONNECTION_STRING as string);
+    let connection = new MongoClient(
+      CONNECTION_STRING as string,
+      {
+        serverApi: {
+            version: ServerApiVersion.v1,
+            strict: true,
+            deprecationErrors: true,
+        }
+      }
+    );
     connection
       .connect()
       .then((client: MongoClient) => {
