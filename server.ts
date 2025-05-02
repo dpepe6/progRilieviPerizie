@@ -21,7 +21,8 @@ const HTTP_PORT = process.env.PORT || 3000; // Cambia 1337 in 3000 o un'altra po
 const DBNAME = "rilieviPerizieDB";
 const COLLECTIONUTENTI = "utentiRilieviPerizieDB";
 const COLLECTIONPERIZIE = "perizieRilieviPerizieDB";
-const CONNECTION_STRING = process.env.MONGO_URL;
+//const CONNECTION_STRING = process.env.MONGO_URL;
+const CONNECTION_STRING = "mongodb+srv://dpepe2727:xawdOZDb6pmOxods@cluster0.epnvj39.mongodb.net/rilieviPerizieDB";
 const ADMIN_ID = "ADMIN";
 // cloudinary.v2.config(JSON.parse(process.env.cloudinary as string));
 const whiteList = [
