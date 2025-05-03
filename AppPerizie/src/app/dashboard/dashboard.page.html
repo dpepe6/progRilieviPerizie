@@ -1,0 +1,49 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Dashboard</ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="danger" (click)="logout()">Logout</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <form (submit)="onSubmit($event)">
+    <ion-item>
+      <ion-label position="stacked">Descrizione Generale</ion-label>
+      <ion-textarea
+        placeholder="Inserisci la descrizione generale della perizia"
+        [(ngModel)]="descrizione"
+        name="descrizione"
+        required
+      ></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Commento Foto</ion-label>
+      <ion-input
+        type="text"
+        placeholder="Inserisci un commento per le foto"
+        [(ngModel)]="commentoFoto"
+        name="commentoFoto"
+      ></ion-input>
+    </ion-item>
+
+    <ion-button expand="block" (click)="scattaFoto()">Scatta Foto</ion-button>
+    <ion-button expand="block" (click)="caricaFoto()">Carica Foto</ion-button>
+
+    <ion-list>
+      <ion-item *ngFor="let foto of fotoSelezionate; let i = index">
+        <ion-thumbnail slot="start">
+          <img [src]="foto.url" />
+        </ion-thumbnail>
+        <ion-label>
+          <h3>{{ foto.commento }}</h3>
+        </ion-label>
+        <ion-button color="danger" (click)="rimuoviFoto(i)">Rimuovi</ion-button>
+      </ion-item>
+    </ion-list>
+
+    <ion-button expand="block" type="submit" class="ion-margin-top">Upload Perizia</ion-button>
+  </form>
+</ion-content>

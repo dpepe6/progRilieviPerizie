@@ -2,22 +2,24 @@
   {
     "_id": "ADMIN",
     "username": "admin",
-    "password": "password",
+    "password": "admin",
     "nome": "Davide Pepe",
     "email": "d.pepe.2727@vallauri.edu"
   },
   {
     "_id": "USER1",
     "username": "mario_rossi",
-    "password": "password",
+    "password": "$2a$10$WZTHMSI0.7xyNGcyb3DpCu8PSF6YtYa7yFa4sHOMqebx2CwtO1gWa",
     "nome": "Mario Rossi",
-    "email": "d.pepe.2727@vallauri.edu"
+    "email": "d.pepe.2727@vallauri.edu",
+    "primoAccesso": 1
   },
   {
     "_id": "USER2",
     "username": "luigi_verdi",
-    "password": "password",
+    "password": "$2a$10$WZTHMSI0.7xyNGcyb3DpCu8PSF6YtYa7yFa4sHOMqebx2CwtO1gWa",
     "nome": "Luigi Verdi",
-    "email": "d.pepe.2727@vallauri.edu"
+    "email": "d.pepe.2727@vallauri.edu",
+    "primoAccesso": 1
   }
 ]

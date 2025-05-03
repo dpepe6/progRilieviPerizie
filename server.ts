@@ -26,6 +26,7 @@ const ADMIN_ID = "ADMIN";
 const whiteList = [
   "http://localhost:1337",
   "https://localhost:1338",
+  "http://localhost:8100",
   "https://192.168.1.70:1338",
   "https://10.88.205.125:1338",
   "https://cordovaapp",
@@ -141,9 +142,12 @@ app.post(
                     console.log("Password non corrispondente");
                     res.status(401).send("Password errata");
                   } else {
-                    let redPage = "pageOperatore.html";
+                    let redPage = "/dashboard-utente.html";
                     if(dbUser._id == ADMIN_ID) {
-                      redPage = "pageAdmin.html";
+                      redPage = "/pageAdmin.html";
+                    }
+                    if (dbUser.primoAccesso == "1") {
+                      redPage = "/cambia-password.html";
                     }
                     res.setHeader("redPage", redPage);
                     let token = createToken(dbUser); // Assicurati che dbUser._id sia un ObjectId valido
@@ -152,7 +156,7 @@ app.post(
                       "access-control-expose-headers",
                       "Authorization"
                     );
-                    res.send({ ris: "ok" });
+                    res.send({ ris: "ok", redPage : redPage, token: token });
                   }
                 }
               );
@@ -404,7 +408,7 @@ app.post("/api/creaNuovoUtente", (req: any, res: Response, next: NextFunction) =
         password: hash,
         nome: nomeCognome,
         email: email,
-        primoAccesso: 1
+        primoAccesso: "1"
       };
 
       let collection = req["connessione"]
@@ -482,6 +486,103 @@ app.post("/api/newReport", (req: any, res: Response, next: NextFunction) => {
     }
     req["connessione"].close();
   });
+});
+
+app.post("/api/cambia-password", async (req: any, res: Response) => {
+  const { currentPassword, nuovaPassword } = req.body;
+  const token = req.headers.authorization?.split(" ")[1];
+
+  console.log("Token ricevuto:", token);
+  console.log("Nuova password ricevuta:", nuovaPassword);
+
+  if (!nuovaPassword || !token) {
+    return res.status(400).send("Tutti i campi sono obbligatori.");
+  }
+
+  try {
+    const decoded = jwt.verify(token, privateKey) as { _id: string };
+    console.log("Token decodificato:", decoded);
+
+    let collection = req["connessione"].db(DBNAME).collection(COLLECTIONUTENTI);
+
+    const user = await collection.findOne({ _id: decoded._id });
+    if (!user) {
+      return res.status(404).json({ message: "Utente non trovato." });
+    }
+
+    if (user.primoAccesso === "1") {
+      console.log("Primo accesso rilevato, bypassando il controllo della password attuale.");
+    } else {
+      /*if (!currentPassword) {
+        return res.status(400).json({ message: "La password attuale è obbligatoria." });
+      }
+
+      const isPasswordValid = await bcrypt.compare(currentPassword, user.password);
+      if (!isPasswordValid) {
+        return res.status(401).json({ message: "La password attuale non è corretta." });
+      }*/
+    }
+
+    if (nuovaPassword.length < 8) {
+      return res.status(400).json({ message: "La nuova password deve contenere almeno 8 caratteri." });
+    }
+
+    const hashedPassword = await bcrypt.hash(nuovaPassword, 10);
+
+    const result = await collection.updateOne(
+      { _id: decoded._id },
+      { $set: { password: hashedPassword, primoAccesso: "0" } }
+    );
+
+    if (result.modifiedCount === 1) {
+      return res.status(200).json({ message: "Password aggiornata con successo." });
+    } else {
+      return res.status(500).json({ message: "Errore durante l'aggiornamento della password." });
+    }
+  } catch (err) {
+    console.error("Errore durante il cambio della password:", err);
+    return res.status(500).send("Errore interno del server.");
+  }
+});
+// POST /api/upload-perizia
+app.post("/api/upload-perizia", async (req: any, res: Response) => {
+  const { descrizione, foto, coordinate, dataOra, codiceOperatore } = req.body;
+  const token = req.headers.authorization?.split(" ")[1];
+
+  if (!descrizione || !foto || foto.length === 0 || !coordinate || !dataOra || !codiceOperatore || !token) {
+    return res.status(400).send("Tutti i campi sono obbligatori.");
+  }
+
+  try {
+    const decoded = jwt.verify(token, privateKey) as { _id: string };
+
+    let collection = req["connessione"].db(DBNAME).collection(COLLECTIONUTENTI);
+
+    const codicePerizia = `PRZ-${new Date().toISOString().slice(0, 10).replace(/-/g, "")}-${Math.floor(Math.random() * 1000).toString().padStart(3, "0")}`;
+
+    const perizia = {
+      _id: codicePerizia,
+      idUtente: decoded._id,
+      dataOra: new Date(dataOra), 
+      coordinate: {
+        lat: parseFloat(coordinate.lat), 
+        lng: parseFloat(coordinate.lng), 
+      },
+      descrizione,
+      fotografie: foto, 
+    };
+
+    const result = await collection.insertOne(perizia);
+
+    if (result.insertedId) {
+      return res.status(200).json({ message: "Perizia caricata con successo.", periziaId: result.insertedId });
+    } else {
+      return res.status(500).send("Errore durante il salvataggio della perizia.");
+    }
+  } catch (err) {
+    console.error("Errore durante l'upload della perizia:", err);
+    return res.status(500).send("Errore interno del server.");
+  }
 });
 
 /* ********************** (Sezione 4) DEFAULT ROUTE  ************************* */

@@ -1,0 +1,26 @@
+ getRisorsa(){
+    const url = 'https://progrilieviperizie.onrender.com/api/getUtenti'; // URL del tuo servizio backend
+  this.http.get(url).subscribe({
+    next: (data) => {
+      console.log('Risposta ricevuta:', data); // Stampa i dati ricevuti
+    },
+    error: (err) => {
+      console.error('Errore nella chiamata:', err); // Gestisce eventuali errori
+    },
+  });
+  
+  }
+  getRisorsa2(){
+    const url = 'https://progrilieviperizie.onrender.com/api/getPerizie'; // URL del tuo servizio backend
+    this.http.get(url).subscribe({
+      next: (data) => {
+        console.log('Risposta ricevuta:', data); // Stampa i dati ricevuti
+      },
+      error: (err) => {
+        console.error('Errore nella chiamata:', err); // Gestisce eventuali errori
+      },
+    });
+  }
+
+  this.getRisorsa();
+    this.getRisorsa2();

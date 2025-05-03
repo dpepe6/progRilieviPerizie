@@ -1,0 +1,7 @@
+{
+  "name": "AppPerizie",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Rilievi e Perizie</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="ion-text-center">
+    <h1 class="text-primary">Rilievi e Perizie</h1>
+  </div>
+
+  <ion-card class="ion-padding" style="max-width: 400px; margin: auto;">
+    <ion-card-header>
+      <ion-card-title class="ion-text-center">Login</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <form (submit)="onSubmit($event)">
+        <ion-item>
+          <ion-label position="stacked">Username</ion-label>
+          <ion-input type="text" placeholder="Inserisci il tuo username" required [(ngModel)]="username" name="username"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Password</ion-label>
+          <ion-input type="password" placeholder="Inserisci la tua password" required [(ngModel)]="password" name="password"></ion-input>
+        </ion-item>
+
+        <ion-button expand="block" type="submit" class="ion-margin-top">Login</ion-button>
+      </form>
+
+      <p id="errorMessage" class="ion-text-center text-danger">{{ errorMessage }}</p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
