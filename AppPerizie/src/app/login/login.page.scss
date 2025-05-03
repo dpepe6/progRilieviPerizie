@@ -1,7 +1,18 @@
 /* /c:/Users/user/Desktop/AppPerizie/src/app/login/login.page.scss */
-:host {
-    background-color: green;
+ion-header {
+    --background: var(--ion-color-primary);
+    --color: black;     
+    --border-color: var(--ion-color-primary-tint);
 }
-.body {
-    background-color: red;
+
+ion-content.custom-background {
+    --background: var(--ion-color-base);
+}
+
+.text-primary {
+    color: var(--ion-color-primary);
+}
+
+.text-danger {
+    color: var(--ion-color-danger);
 }

@@ -1,15 +1,9 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Rilievi e Perizie</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content class="ion-padding">
+<ion-content class="ion-padding" color="secondary">
   <div class="ion-text-center">
-    <h1 class="text-primary">Rilievi e Perizie</h1>
+    <h1 class="text-dark">Rilievi e Perizie</h1>
   </div>
 
-  <ion-card class="ion-padding" style="max-width: 400px; margin: auto;">
+  <ion-card class="ion-padding" style="max-width: 400px; margin: auto; border-radius: 30px;">
     <ion-card-header>
       <ion-card-title class="ion-text-center">Login</ion-card-title>
     </ion-card-header>
@@ -26,10 +20,10 @@
           <ion-input type="password" placeholder="Inserisci la tua password" required [(ngModel)]="password" name="password"></ion-input>
         </ion-item>
 
-        <ion-button expand="block" type="submit" class="ion-margin-top">Login</ion-button>
+        <ion-button expand="block" type="submit" class="ion-margin-top" color="dark">Login</ion-button>
       </form>
 
-      <p id="errorMessage" class="ion-text-center text-danger">{{ errorMessage }}</p>
+      <p id="errorMessage" class="ion-text-center text-danger" color="danger">{{ errorMessage }}</p>
     </ion-card-content>
   </ion-card>
 </ion-content>

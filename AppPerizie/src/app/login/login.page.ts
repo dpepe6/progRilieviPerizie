@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss'],
+  styleUrls: ['./login.page.scss'], // Verifica che il file SCSS sia incluso qui
   standalone: true,
 imports: [
   CommonModule,

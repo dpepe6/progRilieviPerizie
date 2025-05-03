@@ -144,7 +144,7 @@ app.post(
                   } else {
                     let redPage = "/dashboard-utente.html";
                     if(dbUser._id == ADMIN_ID) {
-                      redPage = "/pageAdmin.html";
+                      redPage = "pageAdmin.html";
                     }
                     if (dbUser.primoAccesso == "1") {
                       redPage = "/cambia-password.html";
