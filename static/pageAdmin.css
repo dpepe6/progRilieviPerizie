@@ -42,6 +42,17 @@ body {
   gap: 20px; /* Spazio tra mappa e dettagli */
 }
 
+#container #filter{
+  width: 300px;
+  height: 800px;
+  background-color: #D9D9D9;
+  border-radius: 15px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column; /* Cambia la direzione in colonna */
+  gap: 20px; /* Spazio tra gli elementi */
+}
+
 #filter{
   border-radius: 8px;
   height: 800px;
@@ -241,4 +252,27 @@ iconify-icon {
 
 }
 
+@media screen and (max-width: 375px) {
+  #container{
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 80%;
+  }
+
+  #container #filter{
+    width: 150px;
+    height: 400px;
+    font-size: 6pt;
+    padding-left: 5px;
+    padding-right: 5px;
+    text-size-adjust: 1;
+  }
+
+  #container #mapContainer{
+    margin-left: -30px;
+    margin-right: -40px;
+    height: 400px;
+    width: 180px;
+  }
+}
 
