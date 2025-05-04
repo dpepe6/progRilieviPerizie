@@ -17,7 +17,7 @@ import { jwtDecode } from 'jwt-decode';
 export class DashboardPage {
   descrizione: string = '';
   commentoFoto: string = '';
-  fotoSelezionate: { base64?: string; url?: string; commento: string }[] = [];
+  fotoSelezionate: { base64?: string; url?: string; commento: string; idFoto: string;}[] = [];
   coordinate: { latitudine: number; longitudine: number } | null = null;
   dataOra: string = '';
   codiceOperatore: string = ''; 
@@ -78,6 +78,7 @@ export class DashboardPage {
       this.fotoSelezionate.push({
         url, 
         commento: this.commentoFoto || 'Nessun commento',
+        idFoto: `FOTO${this.fotoSelezionate.length + 1}`,
       });
     } catch (err) {
       console.error('Errore durante lo scatto della foto o fotocamera non disponibile:', err);
@@ -105,6 +106,7 @@ export class DashboardPage {
           this.fotoSelezionate.push({
             url, 
             commento: this.commentoFoto || 'Nessun commento',
+            idFoto: `FOTO${this.fotoSelezionate.length + 1}`,
           });
         } catch (err) {
           console.error('Errore durante il caricamento su Cloudinary:', err);
