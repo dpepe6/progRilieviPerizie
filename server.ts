@@ -544,26 +544,38 @@ app.post("/api/cambia-password", async (req: any, res: Response) => {
     return res.status(500).send("Errore interno del server.");
   }
 });
+
+app.get("/api/idPerizia", (req: any, res: Response, next: NextFunction) => {
+  let collection = req["connessione"].db(DBNAME).collection(COLLECTIONPERIZIE);
+  collection.find({}).project({ "_id": 1}).toArray((err: Error, data: any) => {
+    if (err) {
+      res.status(500);
+      res.send("Errore esecuzione query");
+    } else {
+      res.send(data);
+    }
+    req["connessione"].close();
+  });
+});
+
 // POST /api/upload-perizia
 app.post("/api/upload-perizia", async (req: any, res: Response) => {
-  const { descrizione, foto, coordinate, dataOra, codiceOperatore } = req.body;
+  const { descrizione, foto, coordinate, dataOra, idUtente, codicePerizia } = req.body;
   const token = req.headers.authorization?.split(" ")[1];
 
-  if (!descrizione || !foto || foto.length === 0 || !coordinate || !dataOra || !codiceOperatore || !token) {
+  if (!descrizione || !foto || foto.length === 0 || !coordinate || !dataOra || !idUtente || !token) {
     return res.status(400).send("Tutti i campi sono obbligatori.");
   }
 
   try {
     const decoded = jwt.verify(token, privateKey) as { _id: string };
 
-    let collection = req["connessione"].db(DBNAME).collection(COLLECTIONUTENTI);
-
-    const codicePerizia = `PRZ-${new Date().toISOString().slice(0, 10).replace(/-/g, "")}-${Math.floor(Math.random() * 1000).toString().padStart(3, "0")}`;
+    let collection = req["connessione"].db(DBNAME).collection(COLLECTIONPERIZIE);
 
     const perizia = {
       _id: codicePerizia,
       idUtente: decoded._id,
-      dataOra: new Date(dataOra), 
+      dataOra: dataOra,
       coordinate: {
         lat: parseFloat(coordinate.lat), 
         lng: parseFloat(coordinate.lng), 
@@ -572,13 +584,15 @@ app.post("/api/upload-perizia", async (req: any, res: Response) => {
       fotografie: foto, 
     };
 
-    const result = await collection.insertOne(perizia);
+    //const result = await collection.insertOne(perizia);
+    const result = collection.insertOne(perizia);
 
-    if (result.insertedId) {
-      return res.status(200).json({ message: "Perizia caricata con successo.", periziaId: result.insertedId });
-    } else {
+    if (!result) {
       return res.status(500).send("Errore durante il salvataggio della perizia.");
+    } else {
+      return res.status(200).json({ message: "Perizia caricata con successo.", periziaId: result.insertedId });
     }
+
   } catch (err) {
     console.error("Errore durante l'upload della perizia:", err);
     return res.status(500).send("Errore interno del server.");
