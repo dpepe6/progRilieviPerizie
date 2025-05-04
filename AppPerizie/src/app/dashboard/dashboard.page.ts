@@ -121,7 +121,7 @@ export class DashboardPage {
     formData.append('file', file);
     formData.append('upload_preset', 'mioPreset'); 
 
-    const response = await fetch('https://api.cloudinary.com/v1_1/dmu6njtxz/image/upload', {
+    const response = await fetch('https://api.cloudinary.com/v1_1/dxia0ts8k/image/upload', {
       method: 'POST',
       body: formData,
     });
