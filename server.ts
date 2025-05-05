@@ -8,7 +8,7 @@ import express from "express"; // @types/express
 import e, { Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
 import { Double, MongoClient, ObjectId, ServerApiVersion } from "mongodb";
-import cors from "cors"; // @types/cors
+import cors, {CorsOptions} from "cors"; // @types/cors
 import fileUpload, { UploadedFile } from "express-fileupload";
 import cloudinary, { UploadApiResponse } from "cloudinary";
 import bcrypt from "bcryptjs";
@@ -26,6 +26,7 @@ const ADMIN_ID = "ADMIN";
 const whiteList = [
   "http://localhost:1337",
   "https://localhost:1338",
+  "http://localhost:4200",
   "http://localhost:8100",
   "https://192.168.1.70:1338",
   "https://10.88.205.125:1338",
