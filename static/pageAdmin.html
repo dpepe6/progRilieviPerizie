@@ -29,8 +29,10 @@
 
 <body>
     <!--Navbar-->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">ASSICURAZIONI</a>
+    <nav class="navbar navbar-expand-lg">
+        <select id="operatoreSelect" class="form-control" style="width: 200px; margin-right: 10px;">
+            <option value="all">Tutti</option>
+        </select>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -46,13 +48,6 @@
 
     <!--Home-->
     <div id="container" style="display: flex; flex-direction: row;">
-        <!-- Sezione filtro -->
-        <div id="filter">
-            <h3>Filtra per operatore</h3>
-            <select id="operatoreSelect" class="form-control">
-                <option value="all">Tutti</option>
-            </select>
-        </div>
 
         <!-- Sezione mappa -->
         <div id="mapContainer" style="flex: 3; position: relative;">
@@ -84,7 +79,6 @@
     <div id="dettagliPerizia">
         <button type="button" id="btnDhiudiDettagli" class="close">&times;</button>
         <h3>Dettagli Perizia</h3>
-        <p><b>Perito:</b> <span id="nomeUtente"></span></p>
         <p><b>Data:</b> <span id="data"></span></p>
         <p><b>Ora:</b> <span id="ora"></span></p>
         <p><b>Indirizzo:</b> <span id="indirizzo"></span></p>

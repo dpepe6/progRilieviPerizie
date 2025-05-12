@@ -17,7 +17,7 @@ import { jwtDecode } from 'jwt-decode';
 export class DashboardPage {
   descrizione: string = '';
   commentoFoto: string = '';
-  fotoSelezionate: { base64?: string; url?: string; commento: string }[] = [];
+  fotoSelezionate: { base64?: string; url?: string; commento: string; idFoto: string;}[] = [];
   coordinate: { latitudine: number; longitudine: number } | null = null;
   dataOra: string = '';
   codiceOperatore: string = ''; 
@@ -78,6 +78,7 @@ export class DashboardPage {
       this.fotoSelezionate.push({
         url, 
         commento: this.commentoFoto || 'Nessun commento',
+        idFoto: `FOTO${this.fotoSelezionate.length + 1}`,
       });
     } catch (err) {
       console.error('Errore durante lo scatto della foto o fotocamera non disponibile:', err);
@@ -105,6 +106,7 @@ export class DashboardPage {
           this.fotoSelezionate.push({
             url, 
             commento: this.commentoFoto || 'Nessun commento',
+            idFoto: `FOTO${this.fotoSelezionate.length + 1}`,
           });
         } catch (err) {
           console.error('Errore durante il caricamento su Cloudinary:', err);
@@ -119,7 +121,7 @@ export class DashboardPage {
     formData.append('file', file);
     formData.append('upload_preset', 'mioPreset'); 
 
-    const response = await fetch('https://api.cloudinary.com/v1_1/dmu6njtxz/image/upload', {
+    const response = await fetch('https://api.cloudinary.com/v1_1/dxia0ts8k/image/upload', {
       method: 'POST',
       body: formData,
     });
@@ -162,7 +164,7 @@ export class DashboardPage {
   
     try {
       const decoded: any = jwtDecode(token);
-      this.codiceOperatore = decoded.id; 
+      this.codiceOperatore = decoded._id; 
     } catch (err) {
       console.error('Errore durante la decodifica del token:', err);
       alert('Errore durante la decodifica del token. Effettua nuovamente il login.');
@@ -188,15 +190,18 @@ export class DashboardPage {
         return;
       }
 
-      //const url = 'https://progrilieviperizie.onrender.com/api/upload-perizia';
-      const url = 'http://localhost:3000/api/upload-perizia';
+      //const urlIdPerizia = 'https://progrilieviperizie.onrender.com/api/idPerizia';
+      //const urlUploadPerizia = 'https://progrilieviperizie.onrender.com/api/upload-perizia';
+      const urlIdPerizia = 'http://localhost:3000/api/idPerizia';
+      const urlUploadPerizia = 'http://localhost:3000/api/upload-perizia';
 
-      const body = {
+      let body = {
         descrizione: this.descrizione,
         foto: this.fotoSelezionate,
         coordinate: this.coordinate || { lat: 0, lng: 0 }, 
         dataOra: this.dataOra || new Date().toISOString(),
-        idUtente: this.codiceOperatore || 'Sconosciuto', 
+        idUtente: this.codiceOperatore || 'Sconosciuto',
+        codicePerizia: '',
       };
 
       const headers = new HttpHeaders({
@@ -206,20 +211,33 @@ export class DashboardPage {
       console.log('Dati inviati al backend:', body);
       console.log('Header Authorization:', headers.get('Authorization'));
 
-      // Invia i dati al backend
-      this.http.post(url, body, { headers }).subscribe({
-        next: (response: any) => {
-          console.log('Perizia caricata con successo:', response);
-          alert('Perizia caricata con successo!');
-          this.descrizione = '';
-          this.commentoFoto = '';
-          this.fotoSelezionate = [];
+      this.http.get(urlIdPerizia).subscribe({
+        next: (responseIdPerizia: any) => {
+
+          body.codicePerizia = `PER${responseIdPerizia.length+1}`;
+
+          // Invia i dati al backend
+          this.http.post(urlUploadPerizia, body, { headers }).subscribe({
+            next: (responseUploadPerizia: any) => {
+              console.log('Perizia caricata con successo:', responseUploadPerizia);
+              alert('Perizia caricata con successo!');
+              this.descrizione = '';
+              this.commentoFoto = '';
+              this.fotoSelezionate = [];
+            },
+            error: (err:any) => {
+              console.error('Errore durante il caricamento della perizia:', err);
+              alert('Errore durante il caricamento della perizia. Riprova.');
+            },
+          });
         },
         error: (err:any) => {
           console.error('Errore durante il caricamento della perizia:', err);
           alert('Errore durante il caricamento della perizia. Riprova.');
         },
       });
+
+      
     } catch (err) {
       console.error('Errore durante il recupero delle coordinate o l\'invio:', err);
       alert('Errore durante il recupero delle coordinate o l\'invio. Riprova.');

@@ -411,32 +411,6 @@ app.post("/api/updateOperatore", (req, res, next) => {
     //   .then((result: UploadApiResponse) => { ... })
     //   .catch((err: any) => { ... });
 });
-app.post("/api/newPhoto", (req, res, next) => {
-    cloudinary_1.default.v2.uploader
-        .upload(req.body.img, { folder: "assicurazioni" })
-        .then((result) => {
-        res.send({ path: result.secure_url });
-    })
-        .catch((err) => {
-        res.status(500);
-        res.send("Error upload file to Cloudinary. Error: " + err.message);
-    });
-});
-app.post("/api/newReport", (req, res, next) => {
-    let record = req.body.record;
-    record.codOperatore = req["payload"]._id;
-    let collection = req["connessione"].db(DBNAME).collection(COLLECTIONPERIZIE);
-    collection.insertOne(record, (err, data) => {
-        if (err) {
-            res.status(500);
-            res.send("Errore esecuzione query");
-        }
-        else {
-            res.send({ ris: "ok" });
-        }
-        req["connessione"].close();
-    });
-});
 /* ********************** (Sezione 4) DEFAULT ROUTE  ************************* */
 // Default route
 app.use("/", function (req, res, next) {

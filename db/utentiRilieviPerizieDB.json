@@ -3,23 +3,20 @@
     "_id": "ADMIN",
     "username": "admin",
     "password": "admin",
-    "nome": "Davide Pepe",
-    "email": "d.pepe.2727@vallauri.edu"
+    "nome": "Edoardo Lacertosa"
   },
   {
     "_id": "USER1",
-    "username": "mario_rossi",
+    "username": "gianmarco_tocco",
     "password": "$2a$10$WZTHMSI0.7xyNGcyb3DpCu8PSF6YtYa7yFa4sHOMqebx2CwtO1gWa",
-    "nome": "Mario Rossi",
-    "email": "d.pepe.2727@vallauri.edu",
+    "nome": "Gianmarco Tocco",
     "primoAccesso": 1
   },
   {
     "_id": "USER2",
-    "username": "luigi_verdi",
+    "username": "roberto_negro",
     "password": "$2a$10$WZTHMSI0.7xyNGcyb3DpCu8PSF6YtYa7yFa4sHOMqebx2CwtO1gWa",
-    "nome": "Luigi Verdi",
-    "email": "d.pepe.2727@vallauri.edu",
+    "nome": "Roberto Negro",
     "primoAccesso": 1
   }
 ]

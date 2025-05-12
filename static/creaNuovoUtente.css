@@ -1,84 +1,90 @@
 body {
-    background: linear-gradient(135deg, #2c3e50, #4ca1af); /* Sfondo accattivante */
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0;
-    font-family: 'Arial', sans-serif;
     color: #fff;
 }
 
 #newUserCard {
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: white;
+    color: black;
     border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-    padding: 50px; /* Aumentato il padding */
-    width: 500px; /* Aumentata la larghezza */
+    padding: 40px; /* Aumentato da 30px */
+    width: 400px; /* Aumentato da 350px */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Ombra leggermente più grande */
     text-align: center;
 }
 
 h3 {
-    font-size: 2rem; /* Aumentata la dimensione del titolo */
-    margin-bottom: 30px;
-    color: #333;
+    margin-bottom: 25px; /* Aumentato da 20px */
+    font-size: 1.8rem; /* Aumentato da 1.5rem */
+}
+
+.form-group {
+    margin-bottom: 25px; /* Aumentato da 20px */
+    text-align: left;
 }
 
 .form-label {
     font-weight: bold;
-    color: #555;
-    text-align: left;
-    display: block;
-    margin-bottom: 12px;
-    font-size: 1.3rem; /* Aumentata la dimensione del testo */
+    font-size: 16px; /* Aumentato da 14px */
 }
 
 .form-control {
-    border-radius: 10px;
-    border: 1px solid #bbb;
-    padding: 18px; /* Aumentato il padding */
-    margin-bottom: 25px; /* Maggiore spazio tra i campi */
-    font-size: 1.3rem; /* Aumentata la dimensione del testo */
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 12px; /* Aumentato da 10px */
+    font-size: 16px; /* Aumentato da 14px */
 }
 
-#btnCreateUser {
-    background-color: #6c63ff;
+.form-control:focus {
+    outline: none;
+    box-shadow: 0 0 6px #6a11cb; /* Ombra leggermente più grande */
+}
+
+.alert {
+    display: none;
+    font-size: 16px; /* Aumentato da 14px */
+    margin-top: 15px; /* Aumentato da 10px */
+    border-radius: 5px;
+    background-color: #ffe6e6;
+    color: #d9534f;
+    border: 1px solid #f5c6cb;
+}
+
+#btnCreateUser, #btnChiudi {
+    background-color: #6a11cb;
     border: none;
+    border-radius: 5px;
+    padding: 12px 25px; /* Aumentato da 10px 20px */
     color: #fff;
-    padding: 18px 35px; /* Aumentato il padding */
-    font-size: 1.5rem; /* Aumentata la dimensione del pulsante */
-    border-radius: 10px;
+    font-size: 18px; /* Aumentato da 16px */
+    font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease-in-out;
     width: 100%;
+    margin-top: 15px; /* Aumentato da 10px */
 }
 
-#btnCreateUser:hover {
-    background-color: #574b90;
+button:hover {
+    background: #6a11cb;
+    transform: scale(1.05);
 }
 
-#btnChiudi {
-    background-color: #dc3545;
+button:active {
+    transform: scale(0.95);
+}
+
+button.close {
+    color: #d9534f;
+    font-size: 1.4rem; /* Aumentato da 1.2rem */
     border: none;
-    color: #fff;
-    padding: 18px 35px; /* Aumentato il padding */
-    font-size: 1.5rem; /* Aumentata la dimensione del pulsante */
-    border-radius: 10px;
+    background: none;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: 100%;
-}
-
-#btnChiudi:hover {
-    background-color: #b00000;
-}
-
-.icona-rossa {
-    color: #dc3545;
-    border: 1px solid #dc3545;
-    padding: 16px; 
-    width: 100%; 
-    border-radius: 8px; 
-    margin: 18px auto; 
-    font-size: 1.2rem; 
 }

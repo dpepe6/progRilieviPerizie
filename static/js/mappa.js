@@ -1,7 +1,7 @@
 "use strict";
 
-const LATSEDECENTRALE = 44.648498;
-const LONGSEDECENTRALE = 7.659901;
+const LATSEDECENTRALE = 44.55544335731962;
+const LONGSEDECENTRALE =  7.736416113876829;
 
 function popolaMappa(perizie) {
   if (typeof maplibregl === "undefined") {
@@ -25,7 +25,7 @@ function popolaMappa(perizie) {
   // Aggiungi il segnaposto per la sede centrale
   new maplibregl.Marker({ color: "blue" })
     .setLngLat([LONGSEDECENTRALE, LATSEDECENTRALE])
-    .setPopup(new maplibregl.Popup().setHTML("<h3>Sede Centrale</h3>"))
+    .setPopup(new maplibregl.Popup().setHTML("<h5>Sede Centrale</h5>"))
     .addTo(map);
 
   inviaRichiesta("GET", "/api/idUtenti")
@@ -48,8 +48,6 @@ function popolaMappa(perizie) {
       let popup = new maplibregl.Popup({ offset: 25 }).setHTML(`
         <h3>Dettagli Perizia</h3>
         <p><b>Perito:</b> ${nomeUtente}</p>
-        <p><b>Data:</b> ${ricavaDataOraFormat(perizia.dataOra, true, false)}</p>
-        <p><b>Ora:</b> ${ricavaDataOraFormat(perizia.dataOra, false, true)}</p>
         <p id="descPerizia${perizia._id}"><b>Descrizione:</b> ${perizia.descrizione}</p>
         <button class="btn btn-primary btn-sm" onclick="visualizzaDettagli('${
           perizia._id
@@ -89,15 +87,6 @@ function visualizzaDettagli(periziaId) {
     inviaRichiesta("GET", "/api/idUtenti")
     .done(function (data) {
       console.log("utenti:", data);
-      let nomeUtente = "";
-      for(const utente of data) {
-        if (utente._id == perizia.idUtente) {
-          nomeUtente = utente.nome;
-          break; // Esci dal ciclo una volta trovato l'operatore
-        }
-      }
-
-      $("#nomeUtente").text(nomeUtente);
       $("#data").text(ricavaDataOraFormat(perizia.dataOra, true, false));
       $("#ora").text(ricavaDataOraFormat(perizia.dataOra, false, true));
       $("#descrizionePerizia").val(perizia.descrizione);
@@ -128,7 +117,7 @@ function visualizzaDettagli(periziaId) {
       }
   
       // Mostra la sezione dei dettagli con animazione
-      $("#dettagliPerizia").fadeIn(500);
+      $("#dettagliPerizia").show()
 
     })
     .fail(errore);

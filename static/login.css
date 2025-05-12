@@ -1,65 +1,96 @@
 body {
-    background: linear-gradient(135deg, #2c3e50, #4ca1af); /* Palette scura: blu notte e azzurro petrolio */
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0;
-    font-family: 'Arial', sans-serif;
-    color: #fff; /* Cambiato il colore del testo per contrastare lo sfondo scuro */
+    color: #fff;
 }
 
 #card {
-    background-color: rgba(255, 255, 255, 0.95);
-    border-radius: 20px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-    padding: 50px; /* Aumentato il padding */
-    width: 500px; /* Aumentata la larghezza */
+    background-color: white;
+    color: black;
+    border-radius: 15px;
+    padding: 40px; /* Aumentato da 30px */
+    width: 400px; /* Aumentato da 350px */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Leggermente più grande */
     text-align: center;
 }
 
 #logo {
-    width: 120px; /* Aumentata la dimensione del logo */
-    margin-bottom: 40px; /* Maggiore spazio sotto il logo */
+    width: 120px; /* Aumentato da 100px */
+    margin-bottom: 25px; /* Aumentato da 20px */
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+.form-group {
+    margin-bottom: 25px; /* Aumentato da 20px */
+    text-align: left;
 }
 
 .form-label {
     font-weight: bold;
-    color: #555; /* Colore più scuro per contrasto */
-    text-align: left;
-    display: block;
-    margin-bottom: 12px; /* Maggiore spazio sotto le etichette */
-    font-size: 1.2rem; /* Aumentata la dimensione del testo */
+    font-size: 16px; /* Aumentato da 14px */
 }
 
 .form-control {
-    border-radius: 8px;
-    border: 1px solid #bbb;
-    padding: 14px; /* Aumentato il padding */
-    margin-bottom: 25px; /* Maggiore spazio tra i campi */
-    font-size: 1.2rem; /* Aumentata la dimensione del testo */
+    border: 1px solid black;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    padding: 12px; /* Aumentato da 10px */
+    color: black;
+    font-size: 16px; /* Aumentato da 14px */
+}
+
+.form-control:focus {
+    outline: none;
+    box-shadow: 0 0 6px #6a11cb; /* Leggermente più grande */
+}
+
+#lblErrore {
+    font-size: 16px; /* Aumentato da 14px */
+    margin-top: 15px;
 }
 
 #btnLogin {
-    background-color: #6c63ff; /* Colore viola chiaro */
+    background: #6a11cb;
     border: none;
+    border-radius: 5px;
+    padding: 12px 25px; /* Aumentato da 10px 20px */
     color: #fff;
-    padding: 14px 30px; /* Aumentato il padding */
-    font-size: 1.4rem; /* Aumentata la dimensione del pulsante */
-    border-radius: 8px;
+    font-size: 18px; /* Aumentato da 16px */
+    font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: 100%;
+    transition: all 0.3s ease-in-out;
 }
 
 #btnLogin:hover {
-    background-color: #574b90; /* Colore viola più scuro */
+    background: #2575fc;
+    transform: scale(1.05);
+}
+
+#btnLogin:active {
+    transform: scale(0.95);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .alert {
     display: none;
-    font-size: 1rem; /* Aumentata la dimensione del testo */
-    margin-top: 15px;
+    font-size: 1.2rem; /* Aumentata da 1rem */
+    margin-top: 20px; /* Aumentato da 15px */
     border-radius: 8px;
 }
 
@@ -71,7 +102,7 @@ body {
 
 button.close {
     color: #d9534f;
-    font-size: 1.2rem;
+    font-size: 1.4rem; /* Aumentato da 1.2rem */
     border: none;
     background: none;
     cursor: pointer;
@@ -80,11 +111,11 @@ button.close {
 .icona-rossa {
     color: #dc3545;
     border: 1px solid #dc3545;
-    padding: 16px; 
-    width: 100%; 
-    border-radius: 8px; 
-    margin: 18px auto; 
-    font-size: 1.2rem; 
+    padding: 18px; /* Aumentato da 16px */
+    width: 100%;
+    border-radius: 8px;
+    margin: 20px auto; /* Aumentato da 18px */
+    font-size: 1.4rem; /* Aumentato da 1.2rem */
 }
 
 @media screen and (max-width: 768px) {

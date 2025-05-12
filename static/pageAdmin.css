@@ -1,114 +1,152 @@
 body {
-  background: linear-gradient(135deg, #2c3e50, #4ca1af);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  /*scroll-behavior: smooth;*/
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    display: flex;
+    height: 2500px;
+    flex-direction: column;
+    color: #fff;
+}
+
+.navbar {
+    background-color: #1f1f1f; /* Colore scuro per contrasto */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.navbar-brand {
+    color: #f8f9fa; /* Colore chiaro per contrasto */
+    font-size: 1.5rem;
+    font-weight: bold;
 }
 
 #map {
-  width: 75%;
-  height: 88%;
-  position: absolute;
-  margin: 20px 20px;
-  border-radius: 15px 15px;
-  display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    margin: 20px 20px;
+    border-radius: 15px 15px;
+    display: block;
 }
 
-
 #carouselExampleControls {
-  margin-top: 5%;
-  display: block;
-  margin-bottom: 0;
+    margin-top: 5%;
+    display: block;
+    margin-bottom: 0;
 }
 
 #commentCarousel textarea {
-  border-radius: 0 0 10px 10px;
-  font-size: larger;
+    border-radius: 0 0 10px 10px;
+    font-size: larger;
 }
+
 #commentCarousel button {
-  float: right;
-  font-weight: bold;
-  margin-bottom: 20px;
+    float: right;
+    font-weight: bold;
+    margin-bottom: 20px;
 }
 
-#container{
-  margin-top: 30px;
-  margin-left: 20px;
-  width: 95%;
-  display: flex;
-  flex-direction: column; /* Cambia la direzione in colonna */
-  gap: 20px; /* Spazio tra mappa e dettagli */
+#container {
+    display: flex;
+    flex: 1;
+    margin: 20px;
+    gap: 20px;
 }
 
-#container #filter{
-  width: 300px;
-  height: 800px;
-  background-color: #D9D9D9;
-  border-radius: 15px;
-  padding: 20px;
-  display: flex;
-  flex-direction: column; /* Cambia la direzione in colonna */
-  gap: 20px; /* Spazio tra gli elementi */
+#filter {
+    flex: 1;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  
+    background-color: white;
+    font-weight: bold;
+    color: black;
+    height: 780px;
 }
 
-#filter{
-  border-radius: 8px;
-  height: 800px;
+#filter .form-control {
+    color: black;
+    border: 1px solid black;
 }
 
-#mapContainer{
-  margin-left: 40px;
-  height: 800px;
-  margin-top: -20px;
+#filter h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+#filter select {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    color: #fff;
+    font-size: 1rem;
+    width: 100%;
+}
+
+#map{
+  color: black;
+  border-radius: 25px;
+}
+
+#mapContainer {
+    flex: 3;
+    border-radius: 10px;
+    margin-left: 10px;
+    height: 800px;
+    width: 500px;
+    margin-top: -20px;
+    margin-right: 20px;
+}
+
+#btnCreaUtente{
+  background-color: #6a11cb;
 }
 
 .infoWindow {
-  width: 170px;
-  height: 170px;
-  padding: 15px;
-  background-size: cover;
-  background-origin: paddig-box;
-  opacity: 0.85;
-  font-size: 12pt;
+    width: 170px;
+    height: 170px;
+    padding: 15px;
+    background-size: cover;
+    background-origin: paddig-box;
+    opacity: 0.85;
+    font-size: 12pt;
 }
 
 /*NEW USER*/
-#card{
-	width: 30%;
-	margin: 10% auto;
-
-	background: #D9D9D9;
-	border-radius: 15px;
-	padding: 30px 0;
+#card {
+    width: 30%;
+    margin: 10% auto;
+    background: #D9D9D9;
+    border-radius: 15px;
+    padding: 30px 0;
 }
 
 iconify-icon {
-	width: 150px;
-	height: 150px;
-	margin: 40px auto;
-	margin-top: 0px;
-	display: block;
+    width: 150px;
+    height: 150px;
+    margin: 40px auto;
+    margin-top: 0px;
+    display: block;
 }
 
-#newUser input{
-	display: block;
-	margin: 25px auto;
-	background: #FFFFFF;
-		opacity: 0.6;
-		box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.25);
-		border-radius: 10px;
-		border: none;
-		width:60%;
-		height: 40px;
-		padding-left: 8px;
-		font-size: 16pt;
+#newUser input {
+    display: block;
+    margin: 25px auto;
+    background: #FFFFFF;
+    opacity: 0.6;
+    box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    border: none;
+    width: 60%;
+    height: 40px;
+    padding-left: 8px;
+    font-size: 16pt;
 }
 
-#newUser hr{
-	width: 50%;
-	height: 2px;
+#newUser hr {
+    width: 50%;
+    height: 2px;
 }
 
 #modalFotoContainer img {
@@ -123,70 +161,55 @@ iconify-icon {
 
 /* Stile per #dettagliPerizia */
 #dettagliPerizia {
-    background-color: #f8f9fa; /* Sfondo chiaro */
-    padding: 20px;
+    background-color: white;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ombreggiatura */
-    width: 80%; /* Larghezza completa */
+    padding: 20px;
+    height: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: black;
+    flex: 1;
     display: none; /* Nascondi inizialmente */
     margin: 0px auto;
-    margin-top: 20px; /* Spazio sopra */
+    margin-top: -350px; /* Spazio sopra */
 }
 
 /* Stile per i titoli */
 #dettagliPerizia h3 {
-    font-size: 30pt;
-    color: #333;
+    font-size: 1.5rem;
     margin-bottom: 15px;
-    font-weight: bold;
 }
 
 /* Stile per i paragrafi */
 #dettagliPerizia p {
-    font-size: 17pt;
-    color: #555;
+    font-size: 1rem;
     margin-bottom: 10px;
 }
 
 /* Stile per il textarea */
 #dettagliPerizia textarea {
-    border-radius: 8px;
-    border: 1px solid #ccc;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid black;
+    border-radius: 5px;
     padding: 10px;
-    font-size: 17pt;
+    color: black;
+    font-size: 1rem;
     width: 100%;
     margin-bottom: 15px;
 }
 
 /* Stile per i pulsanti */
 #dettagliPerizia button {
-    border-radius: 8px;
+    border: none;
+    border-radius: 5px;
     padding: 10px 20px;
     font-size: 1rem;
+    font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease-in-out;
     margin-top: 10px;
 }
 
-#dettagliPerizia .btn-success {
-    background-color: #28a745;
-    color: #fff;
-    border: none;
-}
 
-#dettagliPerizia .btn-success:hover {
-    background-color: #218838;
-}
-
-#dettagliPerizia .btn-primary {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-}
-
-#dettagliPerizia .btn-primary:hover {
-    background-color: #0056b3;
-}
 
 /* Stile per il contenitore delle foto */
 #fotoContainer {
@@ -208,71 +231,108 @@ iconify-icon {
     transform: scale(1.1);
 }
 
-#tabellaPerizie{
-  margin: auto;
-  margin-top: 30px;
-  border: 1px solid black;
-  color: black;
-  background-color: #D9D9D9;
+button {
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
 }
 
-#tabellaPerizie h3{
-  font-size: 20pt;
-  margin-left: 10px;
-  font-weight: bold;
+button:hover {
+    transform: scale(1.05);
 }
 
-#tabellaPerizie th{
-  background-color: #D9D9D9;
-  color: black;
-  font-size: 15pt;
-  text-align: center;
+button:active {
+    transform: scale(0.95);
 }
 
-#tabellaPerizie td{
-  background-color: #D9D9D9;
-  color: black;
-  font-size: 15pt;
-  text-align: center;
+#btnCreaUtente {
+    background: #17a2b8; 
+    color: #fff; 
+    font-weight: bold;
+}
+
+#btnCreaUtente:hover {
+  background: #138496; /* Azzurro più scuro per hover */
+}
+
+
+#btnLogout {
+    background: #17a2b8; /* Azzurro brillante */
+    color: #fff; /* Testo bianco */
+    font-weight: bold;
+}
+
+#btnLogout:hover {
+    background: #138496; /* Azzurro più scuro per hover */
+}
+
+#salvaDescrizione,
+#salvaCommento {
+    background: #6a11cb;
+    color: #fff;
+}
+
+.close {
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
 }
 
 @media screen and (max-width: 850px) {
-	#card{
-		width: 90%;
-	}
-	#newUser input{
-		width: 80%;
-	}
-	#btnLogin{
-		width: 80%;
-	}
-	#google-signin-button{
-		margin-left: 17%;
-	}
+    #card {
+        width: 90%;
+    }
 
+    #newUser input {
+        width: 80%;
+    }
+
+    #btnLogin {
+        width: 80%;
+    }
+
+    #google-signin-button {
+        margin-left: 17%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #container {
+        flex-direction: column;
+    }
+
+    #filter,
+    #mapContainer,
+    #dettagliPerizia {
+        width: 100%;
+    }
 }
 
 @media screen and (max-width: 375px) {
-  #container{
-    margin-top: 10px;
-    margin-left: 10px;
-    width: 80%;
-  }
+    #container {
+        margin-top: 10px;
+        margin-left: 10px;
+        width: 80%;
+    }
 
-  #container #filter{
-    width: 150px;
-    height: 400px;
-    font-size: 6pt;
-    padding-left: 5px;
-    padding-right: 5px;
-    text-size-adjust: 1;
-  }
+    #container #filter {
+        width: 150px;
+        height: 400px;
+        font-size: 6pt;
+        padding-left: 5px;
+        padding-right: 5px;
+        text-size-adjust: 1;
+    }
 
-  #container #mapContainer{
-    margin-left: -30px;
-    margin-right: -40px;
-    height: 400px;
-    width: 180px;
-  }
+    #container #mapContainer {
+        margin-left: -30px;
+        margin-right: -40px;
+        height: 400px;
+        width: 180px;
+    }
 }
 

@@ -3,18 +3,13 @@
     "_id": "PER1",
     "idUtente": "USER1",
     "dataOra": "2024-03-06T10:30:00Z",
-    "coordinate": { "lat": 44.646124, "lng": 7.654039 },
-    "descrizione": "Mancata precedenza alla rotonda.",
+    "coordinate": { "lat": 44.746124, "lng": 7.854039 },
+    "descrizione": "Tamponamento all'incrocio.",
     "fotografie": [
       { 
         "idFoto": "FOTO1",
         "url": "https://wips.plug.it/cips/paginegialle.it/magazine/cms/2019/03/28154968_s-cropped.jpg?w=744&h=418&a=c",
-        "commento":"Veicolo A"
-      },
-      {
-        "idFoto": "FOTO2",
-        "url": "https://img.gruppomol.it/articoli/image/auto/1200x675_Depositphotos_40248311_xl-2015.jpg",
-        "commento":"Veicolo B"
+        "commento":"Veicolo A tampona veicolo B in corrispondenza dello stop"
       }
     ]
   },
@@ -22,13 +17,13 @@
     "_id": "PER2",
     "idUtente": "USER1",
     "dataOra": "2024-03-06T14:15:00Z",
-    "coordinate": { "lat": 44.705898, "lng": 7.687379 },
-    "descrizione": "Mancato stop all'incrocio.",
+    "coordinate": { "lat": 44.805898, "lng": 7.787379 },
+    "descrizione": "Tamponamento in rotonda.",
     "fotografie": [
       {
         "idFoto": "FOTO1",
         "url": "aggiungere foto",
-        "commento":"Danno veicolo A"
+        "commento":"Ma quanta aura c'hai?"
       }
     ]
   },
@@ -36,13 +31,13 @@
     "_id": "PER3",
     "idUtente": "USER2",
     "dataOra": "2024-03-07T09:45:00Z",
-    "coordinate": { "lat": 44.656829, "lng": 7.715956 },
-    "descrizione": "Tamponamento in rotonda.",
+    "coordinate": { "lat": 44.756829, "lng": 7.745956 },
+    "descrizione": "Tamponamento in autostrada.",
     "fotografie": [
       {
         "idFoto": "FOTO1",
         "url": "aggiungere foto",
-        "commento":"Danno Veicolo B"
+        "commento": "Veicolo B tampona con l'aura il veicolo A in corsia di sorpasso."
       }
     ]
   }
