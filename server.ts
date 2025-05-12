@@ -8,7 +8,7 @@ import express from "express"; // @types/express
 import e, { Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
 import { Double, MongoClient, ObjectId, ServerApiVersion } from "mongodb";
-import cors from "cors"; // @types/cors
+import cors, {CorsOptions} from "cors"; // @types/cors
 import fileUpload, { UploadedFile } from "express-fileupload";
 import cloudinary, { UploadApiResponse } from "cloudinary";
 import bcrypt from "bcryptjs";
@@ -26,17 +26,29 @@ const ADMIN_ID = "ADMIN";
 const whiteList = [
   "http://localhost:1337",
   "https://localhost:1338",
+  "http://localhost:4200",
+  "https://progrilieviperizie.onrender.com",
   "http://localhost:8100",
   "https://192.168.1.70:1338",
   "https://10.88.205.125:1338",
   "https://cordovaapp",
 ];
-const corsOptions = {
-  origin: function (origin: any, callback: any) {
-    return callback(null, true);
-  },
-  credentials: true,
+const corsOptions: CorsOptions = {
+  origin: function (origin, callback) {
+    if (!origin) {
+      return callback(null, true);
+    }
+    const trimmedOrigin = origin.trim();
+    console.log("Request from origin:", trimmedOrigin);
+    if (whiteList.includes(trimmedOrigin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS: " + trimmedOrigin));
+    }
+  }
 };
+app.use(cors(corsOptions));
+
 const HTTPS_PORT = 1337;
 const privateKey = fs.readFileSync("keys/privateKey.pem", "utf8");
 const certificate = fs.readFileSync("keys/certificate.crt", "utf8");
